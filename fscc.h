@@ -52,35 +52,35 @@ typedef int64_t fscc_register;
 
 struct fscc_registers {
     /* BAR 0 */
-    long long  reserved1[2];
+    INT64 reserved1[2];
 
-    long long  FIFOT;
+    INT64  FIFOT;
 
-    long long  reserved2[2];
+    INT64  reserved2[2];
 
-    long long  CMDR;
-    long long  STAR; /* Read-only */
-    long long  CCR0;
-    long long  CCR1;
-    long long  CCR2;
-    long long  BGR;
-    long long  SSR;
-    long long  SMR;
-    long long  TSR;
-    long long  TMR;
-    long long  RAR;
-    long long  RAMR;
-    long long  PPR;
-    long long  TCR;
-    long long  VSTR; /* Read-only */
+    INT64  CMDR;
+    INT64  STAR; /* Read-only */
+    INT64  CCR0;
+    INT64  CCR1;
+    INT64  CCR2;
+    INT64  BGR;
+    INT64  SSR;
+    INT64  SMR;
+    INT64  TSR;
+    INT64  TMR;
+    INT64  RAR;
+    INT64  RAMR;
+    INT64  PPR;
+    INT64  TCR;
+    INT64  VSTR; /* Read-only */
 
-    long long  reserved3[1];
+    INT64  reserved3[1];
 
-    long long  IMR;
-    long long  DPLLR;
+    INT64  IMR;
+    INT64  DPLLR;
 
     /* BAR 2 */
-    long long  FCR;
+    INT64  FCR;
 };
 
 struct fscc_memory_cap {

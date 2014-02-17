@@ -24,7 +24,7 @@ function fscc_fun = mfscc()
     fscc_fun.read_with_timeout=@read_with_timeout;
     %fscc_fun.read_with_blocking=@read_with_blocking;
     fscc_fun.set_registers=@set_registers;
-    %fscc_fun.get_registers=@get_registers;
+    fscc_fun.get_registers=@get_registers;
     fscc_fun.get_rx_multiple=@get_rx_multiple;
     fscc_fun.enable_rx_multiple=@enable_rx_multiple;
     fscc_fun.disable_rx_multiple=@disable_rx_multiple;
@@ -145,8 +145,8 @@ end
 % valid register names, map it to an appropriately sized and build
 % structure, then send that onward to fscc_set_registers
 function set_registers(handle, registers)
-    key_set = {'RES1','RES2','FIFOT','RES3','RES4','CMDR','CCR0','CCR1','CCR2','BGR','SSR','SMR','TSR','TMR','RAR','RAMR','PPR','TCR','VSTR','RES5','IMR','DPLLR','FCR'};
-    val_set = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
+    key_set = {'reserved1','FIFOT','reserved2','CMDR','CCR0','CCR1','CCR2','BGR','SSR','SMR','TSR','TMR','RAR','RAMR','PPR','TCR','VSTR','reserved3','IMR','DPLLR','FCR'};
+    val_set = [{{-1,-1}},-1,{{-1,-1}},-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
     reg_map = containers.Map(key_set, val_set);
     allKeys = keys(registers);
     for i = allKeys
@@ -155,7 +155,7 @@ function set_registers(handle, registers)
             reg_map(char(temp_i)) = registers(char(temp_i));
         end
     end
-    registers_in = struct('reserved1',int64(reg_map('RES1')),'RES2',int64(reg_map('RES2')),'FIFOT',int64(reg_map('FIFOT')),'RES3',int64(reg_map('RES3')),'RES4',int64(reg_map('RES4')),'CMDR',int64(reg_map('CMDR')),'CCR0',int64(reg_map('CCR0')),'CCR1',int64(reg_map('CCR1')),'CCR2',int64(reg_map('CCR2')),'BGR',int64(reg_map('BGR')),'SSR',int64(reg_map('SSR')),'SMR',int64(reg_map('SMR')),'TSR',int64(reg_map('TSR')),'TMR',int64(reg_map('TMR')),'RAR',int64(reg_map('RAR')),'RAMR',int64(reg_map('RAMR')),'PPR',int64(reg_map('PPR')),'TCR',int64(reg_map('TCR')),'VSTR',int64(reg_map('VSTR')),'RES5',int64(reg_map('RES5')),'IMR',int64(reg_map('IMR')),'DPLLR',int64(reg_map('DPLLR')),'FCR',int64(reg_map('FCR')));
+    registers_in = struct('reserved1',reg_map('reserved1'),'FIFOT',reg_map('FIFOT'),'reserved2',reg_map('reserved2'),'CMDR',reg_map('CMDR'),'CCR0',reg_map('CCR0'),'CCR1',reg_map('CCR1'),'CCR2',reg_map('CCR2'),'BGR',reg_map('BGR'),'SSR',reg_map('SSR'),'SMR',reg_map('SMR'),'TSR',reg_map('TSR'),'TMR',reg_map('TMR'),'RAR',reg_map('RAR'),'RAMR',reg_map('RAMR'),'PPR',reg_map('PPR'),'TCR',reg_map('TCR'),'VSTR',reg_map('VSTR'),'reserved3',reg_map('reserved3'),'IMR',reg_map('IMR'),'DPLLR',reg_map('DPLLR'),'FCR',reg_map('FCR'));
     mem_struct = libstruct('fscc_registers',registers_in);
 end
 

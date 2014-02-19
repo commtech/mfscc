@@ -161,8 +161,11 @@ function set_registers(handle, registers)
     calllib('cfscc', 'fscc_set_registers', handle, mem_struct);
 end
 
-%function [registers] = get_registers(handle)
-%end
+function [registers] = get_registers(handle)
+    reg_struct = struct('reserved1',-1,'FIFOT',-2,'reserved2',-1,'CMDR',-1,'STAR', -2,'CCR0',-2,'CCR1',-2,'CCR2',-2,'BGR',-2,'SSR',-2,'SMR',-2,'TSR',-2,'TMR',-2,'RAR',-2,'RAMR',-2,'PPR',-2,'TCR',-2,'VSTR',-2,'reserved3',-1,'IMR',-2,'DPLLR',-2,'FCR',-2);
+    registers = libpointer('fscc_registers',reg_struct);
+    calllib('cfscc', 'fscc_get_registers', handle, registers)
+end
 
 function [status] = get_rx_multiple(handle)
     status = libpointer('uint32Ptr',0);

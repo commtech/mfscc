@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2013 Commtech, Inc.
+    Copyright (C) 2014 Commtech, Inc.
 
     This file is part of cfscc.
 
@@ -41,7 +41,7 @@ extern "C"
 
 enum error_type { FSCC_TIMEOUT=16000, FSCC_INCORRECT_MODE,
                   FSCC_BUFFER_TOO_SMALL, FSCC_PORT_NOT_FOUND,
-                  FSCC_INVALID_ACCESS };
+                  FSCC_INVALID_ACCESS, FSCC_INVALID_PARAMETER };
 enum transmit_type { XF=0, XREP=1, TXT=2, TXEXT=4 };
 
 #ifdef _WIN32
@@ -52,35 +52,35 @@ typedef int64_t fscc_register;
 
 struct fscc_registers {
     /* BAR 0 */
-    INT64 reserved1[2];
+    fscc_register reserved1[2];
 
-    INT64  FIFOT;
+    fscc_register FIFOT;
 
-    INT64  reserved2[2];
+    fscc_register reserved2[2];
 
-    INT64  CMDR;
-    INT64  STAR; /* Read-only */
-    INT64  CCR0;
-    INT64  CCR1;
-    INT64  CCR2;
-    INT64  BGR;
-    INT64  SSR;
-    INT64  SMR;
-    INT64  TSR;
-    INT64  TMR;
-    INT64  RAR;
-    INT64  RAMR;
-    INT64  PPR;
-    INT64  TCR;
-    INT64  VSTR; /* Read-only */
+    fscc_register CMDR;
+    fscc_register STAR; /* Read-only */
+    fscc_register CCR0;
+    fscc_register CCR1;
+    fscc_register CCR2;
+    fscc_register BGR;
+    fscc_register SSR;
+    fscc_register SMR;
+    fscc_register TSR;
+    fscc_register TMR;
+    fscc_register RAR;
+    fscc_register RAMR;
+    fscc_register PPR;
+    fscc_register TCR;
+    fscc_register VSTR; /* Read-only */
 
-    INT64  reserved3[1];
+    fscc_register reserved3[1];
 
-    INT64  IMR;
-    INT64  DPLLR;
+    fscc_register IMR;
+    fscc_register DPLLR;
 
     /* BAR 2 */
-    INT64  FCR;
+    fscc_register FCR;
 };
 
 struct fscc_memory_cap {
@@ -120,6 +120,8 @@ struct fscc_memory_cap {
     #define FSCC_ENABLE_APPEND_TIMESTAMP CTL_CODE(FSCC_IOCTL_MAGIC, 0x813, METHOD_BUFFERED, FILE_ANY_ACCESS)
     #define FSCC_DISABLE_APPEND_TIMESTAMP CTL_CODE(FSCC_IOCTL_MAGIC, 0x814, METHOD_BUFFERED, FILE_ANY_ACCESS)
     #define FSCC_GET_APPEND_TIMESTAMP CTL_CODE(FSCC_IOCTL_MAGIC, 0x815, METHOD_BUFFERED, FILE_ANY_ACCESS)
+
+    #define FSCC_TRACK_INTERRUPTS CTL_CODE(FSCC_IOCTL_MAGIC, 0x819, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #else
     #define FSCC_IOCTL_MAGIC 0x18
     #define FSCC_GET_REGISTERS _IOR(FSCC_IOCTL_MAGIC, 0, struct fscc_registers *)
@@ -189,6 +191,9 @@ DLL_EXPORT int fscc_disable_ignore_timeout(fscc_handle h);
 DLL_EXPORT int fscc_get_rx_multiple(fscc_handle h, unsigned *status);
 DLL_EXPORT int fscc_enable_rx_multiple(fscc_handle h);
 DLL_EXPORT int fscc_disable_rx_multiple(fscc_handle h);
+DLL_EXPORT int fscc_track_interrupts(fscc_handle h, unsigned interrupts, unsigned *matches, OVERLAPPED *o);
+DLL_EXPORT int fscc_track_interrupts_with_blocking(fscc_handle h, unsigned interrupts, unsigned *matches);
+DLL_EXPORT int fscc_track_interrupts_with_timeout(fscc_handle h, unsigned interrupts, unsigned *matches, unsigned timeout);
 DLL_EXPORT int fscc_purge(fscc_handle h, unsigned tx, unsigned rx);
 DLL_EXPORT int fscc_write(fscc_handle h, char *buf, unsigned size, unsigned *bytes_written, OVERLAPPED *o);
 DLL_EXPORT int fscc_write_with_blocking(fscc_handle h, char *buf, unsigned size, unsigned *bytes_written);

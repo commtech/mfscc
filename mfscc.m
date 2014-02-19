@@ -28,7 +28,7 @@ function fscc_fun = mfscc()
     fscc_fun.get_rx_multiple=@get_rx_multiple;
     fscc_fun.enable_rx_multiple=@enable_rx_multiple;
     fscc_fun.disable_rx_multiple=@disable_rx_multiple;
-    %fscc_fun.track_interrupts=@track_interrupts;
+    fscc_fun.track_interrupts=@track_interrupts;
     fscc_fun.track_interrupts_with_blocking=@track_interrupts_with_blocking;
     fscc_fun.track_interrupts_with_timeout=@track_interrupts_with_timeout;
     fscc_fun.get_tx_modifiers=@get_tx_modifiers;
@@ -156,8 +156,9 @@ function set_registers(handle, registers)
             reg_map(char(temp_i)) = registers(char(temp_i));
         end
     end
-    registers_in = struct('reserved1',reg_map('reserved1'),'FIFOT',reg_map('FIFOT'),'reserved2',reg_map('reserved2'),'CMDR',reg_map('CMDR'),'CCR0',reg_map('CCR0'),'CCR1',reg_map('CCR1'),'CCR2',reg_map('CCR2'),'BGR',reg_map('BGR'),'SSR',reg_map('SSR'),'SMR',reg_map('SMR'),'TSR',reg_map('TSR'),'TMR',reg_map('TMR'),'RAR',reg_map('RAR'),'RAMR',reg_map('RAMR'),'PPR',reg_map('PPR'),'TCR',reg_map('TCR'),'VSTR',reg_map('VSTR'),'reserved3',reg_map('reserved3'),'IMR',reg_map('IMR'),'DPLLR',reg_map('DPLLR'),'FCR',reg_map('FCR'));
+    registers_in = struct('reserved1',reg_map('reserved1'),'FIFOT',reg_map('FIFOT'),'reserved2',reg_map('reserved2'),'CMDR',reg_map('CMDR'),'STAR', -1,'CCR0',reg_map('CCR0'),'CCR1',reg_map('CCR1'),'CCR2',reg_map('CCR2'),'BGR',reg_map('BGR'),'SSR',reg_map('SSR'),'SMR',reg_map('SMR'),'TSR',reg_map('TSR'),'TMR',reg_map('TMR'),'RAR',reg_map('RAR'),'RAMR',reg_map('RAMR'),'PPR',reg_map('PPR'),'TCR',reg_map('TCR'),'VSTR',reg_map('VSTR'),'reserved3',reg_map('reserved3'),'IMR',reg_map('IMR'),'DPLLR',reg_map('DPLLR'),'FCR',reg_map('FCR'));
     mem_struct = libstruct('fscc_registers',registers_in);
+    calllib('cfscc', 'fscc_set_registers', handle, mem_struct);
 end
 
 %function [registers] = get_registers(handle)

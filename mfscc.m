@@ -2,7 +2,7 @@ function fscc_fun = mfscc()
     % This will pull in the library unless its already in
     if not(libisloaded('cfscc'))
         hfile = 'fscc.h';
-        loadlibrary('cfscc.dll',hfile);
+        [notfound, warnings] = loadlibrary('cfscc.dll',hfile);
     end
     
     fscc_fun.get_append_status=@get_append_status;
@@ -146,7 +146,8 @@ end
 % structure, then send that onward to fscc_set_registers
 function set_registers(handle, registers)
     key_set = {'reserved1','FIFOT','reserved2','CMDR','CCR0','CCR1','CCR2','BGR','SSR','SMR','TSR','TMR','RAR','RAMR','PPR','TCR','VSTR','reserved3','IMR','DPLLR','FCR'};
-    val_set = [{{-1,-1}},-1,{{-1,-1}},-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
+    double_one = {[-1,-1]};
+    val_set = [double_one,-1,double_one,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
     reg_map = containers.Map(key_set, val_set);
     allKeys = keys(registers);
     for i = allKeys

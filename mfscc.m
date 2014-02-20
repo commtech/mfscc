@@ -20,7 +20,7 @@ function fscc_fun = mfscc()
     fscc_fun.get_memory_cap=@get_memory_cap;	% May not work
     fscc_fun.set_memory_cap=@set_memory_cap;    % May not work
     fscc_fun.purge=@purge;
-    %fscc_fun.read=@read;
+    %fscc_fun.read=@read;    % Potential future development
     fscc_fun.read_with_timeout=@read_with_timeout;
     %fscc_fun.read_with_blocking=@read_with_blocking;
     fscc_fun.set_registers=@set_registers;
@@ -33,7 +33,7 @@ function fscc_fun = mfscc()
     fscc_fun.track_interrupts_with_timeout=@track_interrupts_with_timeout;
     fscc_fun.get_tx_modifiers=@get_tx_modifiers;
     fscc_fun.set_tx_modifiers=@set_tx_modifiers;
-    %fscc_fun.write=@write;
+    %fscc_fun.write=@write; % Potential future development
     fscc_fun.write_with_blocking=@write_with_blocking; % May not work
 end
 
@@ -66,7 +66,7 @@ end
 function set_clock_frequency(handle, frequency)
     success = calllib('cfscc', 'fscc_set_clock_frequency', handle, frequency);
      if success == 16005
-        err = MException('InvalidParameter', 'Clock frequency is out of range (15,000 to 270,000,000)');
+        err = MException('FSCC:InvalidParameter', 'Clock frequency is out of range (15,000 to 270,000,000)');
         throw(err)
      end
 end
@@ -75,10 +75,10 @@ function [handle] = connect(port)
     handle = libpointer;
     success = calllib('cfscc', 'fscc_connect', port, handle);
     if success == 16003
-        err = MException('PortNotFound', 'Port not found - board installed?');
+        err = MException('FSCC:PortNotFound', 'Port not found - board installed?');
         throw(err)
     elseif success == 16004
-        err = MException('InvalidAccess', 'Insufficient permissions.');
+        err = MException('FSCC:InvalidAccess', 'Insufficient permissions.');
         throw(err)
     end
 end
@@ -100,24 +100,23 @@ function disable_ignore_timeout(handle)
     calllib('cfscc', 'fscc_disable_ignore_timeout', handle);
 end
 
-function [input, output] = get_memory_cap(handle)
-    fscc_memory_cap = struct('input',int32(0),'output',int32(0));
-    mem_struct = libpointer('c_struct',fscc_memory_cap);
+function mem_caps = get_memory_cap(handle)
+    fscc_memory_cap = struct('input',int32(-2),'output',int32(-2));
+    mem_struct = libpointer('fscc_memory_cap',fscc_memory_cap);
     calllib('cfscc', 'fscc_get_memory_cap', handle, mem_struct);
-    input = mem_struct.input;
-    output = mem_struct.output;
+    mem_caps = get(mem_struct, 'Value');
 end
-
+ 
 function set_memory_cap(handle, input, output)
     fscc_memory_cap = struct('input', int32(input), 'output', int32(output));
-    mem_struct = libpointer('c_struct', fscc_memory_cap);
+    mem_struct = libpointer('fscc_memory_cap', fscc_memory_cap);
     calllib('cfscc', 'fscc_set_memory_cap', handle, mem_struct);
 end
 
 function purge(handle, transmit, receive)
-    calllib('cfscc', 'fscc_purge', handle, transmit, receive);
+    success = calllib('cfscc', 'fscc_purge', handle, transmit, receive);
     if success == 16000
-        err = MException('Timeout', 'Command timed out (missing clock)');
+        err = MException('FSCC:Timeout', 'Command timed out (missing clock)');
         throw(err)
     end
 end
@@ -128,12 +127,12 @@ end
 function [data, amount_read] = read_with_timeout(handle, timeout)
     data = libpointer('voidPtr',[int8(str) 0]);
     amount_read = libpointer('uint32Ptr');
-    calllib('cfscc', 'fscc_read', handle, data, 4096, amount_read, timeout);
+    success = calllib('cfscc', 'fscc_read', handle, data, 4096, amount_read, timeout);
     if success == 16002
-        err = MException('BufferTooSmall', 'The buffer size is smaller than the next frame');
+        err = MException('FSCC:BufferTooSmall', 'The buffer size is smaller than the next frame');
         throw(err)
     elseif success == 16001
-        err = MException('incorrectMode', 'Using the synchronous port while in asynchronous mode');
+        err = MException('FSCC:IncorrectMode', 'Using the synchronous port while in asynchronous mode');
         throw(err)
     end
 end
@@ -161,10 +160,11 @@ function set_registers(handle, registers)
     calllib('cfscc', 'fscc_set_registers', handle, mem_struct);
 end
 
-function [registers] = get_registers(handle)
+function [reg_out] = get_registers(handle)
     reg_struct = struct('reserved1',-1,'FIFOT',-2,'reserved2',-1,'CMDR',-1,'STAR', -2,'CCR0',-2,'CCR1',-2,'CCR2',-2,'BGR',-2,'SSR',-2,'SMR',-2,'TSR',-2,'TMR',-2,'RAR',-2,'RAMR',-2,'PPR',-2,'TCR',-2,'VSTR',-2,'reserved3',-1,'IMR',-2,'DPLLR',-2,'FCR',-2);
     registers = libpointer('fscc_registers',reg_struct);
     calllib('cfscc', 'fscc_get_registers', handle, registers)
+    reg_out = get(registers, 'Value');
 end
 
 function [status] = get_rx_multiple(handle)
@@ -205,13 +205,13 @@ function [written] = write_with_blocking(handle, data, size)
     written = libpointer('uint32Ptr',0);
     success = calllib('cfscc', 'fscc_write_with_blocking', handle, data, size, written);
     if success == 16002
-        err = MException('BufferTooSmall', 'The write size exceeds the output memory usage cap');
+        err = MException('FSCC:BufferTooSmall', 'The write size exceeds the output memory usage cap');
         throw(err)
     elseif success == 16000
-        err = MException('Timeout', 'Command timed out (missing clock)');
+        err = MException('FSCC:Timeout', 'Command timed out (missing clock)');
         throw(err)
     elseif success == 16001
-        err = MException('IncorrectMode', 'Using the synchronous port while in asynchronous mode');
+        err = MException('FSCC:IncorrectMode', 'Using the synchronous port while in asynchronous mode');
         throw(err)
     end
 end

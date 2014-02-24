@@ -1,7 +1,4 @@
-import fscc
-
-if __name__ == '__main__':
-    p = fscc.Port(0)
-
-    # 18.432 Mhz
-    p.clock_frequency = 18432000
+fscc = mfscc();
+p = fscc.connect(0);
+fscc.set_clock_frequency(p, 18432000);
+fscc.disconnect(p);

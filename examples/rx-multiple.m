@@ -1,9 +1,6 @@
-import fscc
-
-if __name__ == '__main__':
-    p = fscc.Port(0)
-
-    status = p.rx_multiple
-
-    p.rx_multiple = True
-    p.rx_multiple = False
+fscc = mfscc()
+p = fscc.connect(0);
+status = fscc.get_rx_multiple(p)
+fscc.set_rx_multiple(p, 1);
+fscc.set_rx_multiple(p, 0);
+fscc.disconnect(p);

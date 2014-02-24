@@ -1,10 +1,6 @@
-import fscc
-
-if __name__ == '__main__':
-    p = fscc.Port(0)
-
-    p.registers.CCR0 = 0x0011201c
-    p.registers.BGR = 10
-
-    ccr1 = p.registers.CCR1
-    ccr2 = p.registers.CCR2
+fscc = mfscc();
+p = fscc.connect(0);
+reg_in = containers.Map({'CCR2','BGR'},{0,1});
+fscc.set_registers(p, reg_in);
+reg_out = fscc.get_registers(p)
+fscc.disconnect(0);

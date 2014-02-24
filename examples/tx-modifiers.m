@@ -1,12 +1,7 @@
-import fscc
-
-if __name__ == '__main__':
-    p = fscc.Port(0)
-
-    modifiers = p.tx_modifiers
-
-    # Enable transmit repeat & transmit on timer
-    p.tx_modifiers = fscc.TXT | fscc.XREP
-
-    # Revert to normal transmission
-    p.tx_modifiers = fscc.XF
+fscc = mfscc();
+p = fscc.connect(0);
+modifiers = fscc.get_tx_modifiers(p)
+modifiers = 1 | 2;
+fscc.set_tx_modifiers(p, modifiers);
+fscc.set_tx_modifiers(p, 0);
+fscc.disconnect(p);

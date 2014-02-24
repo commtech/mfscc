@@ -1,4 +1,7 @@
-import fscc
+fscc = mfscc();
+p = fscc.connect(0);
+
+fscc.disconnect(p);
 
 if __name__ == '__main__':
     p = fscc.Port(0)

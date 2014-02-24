@@ -1,10 +1,5 @@
-import fscc
-
-if __name__ == '__main__':
-    p = fscc.Port(0)
-
-    p.memory_cap.input = 1000000  # 1 MB
-    p.memory_cap.output = 2000000  # 2 MB
-
-    input = p.memory_cap.input
-    output = p.memory_cap.output
+fscc = mfscc();
+p = fscc.connect(0);
+fscc.set_memory_cap(p, 1000000, 2000000);
+mem_cap = fscc.get_memory_cap(p)
+fscc.disconnect(p);

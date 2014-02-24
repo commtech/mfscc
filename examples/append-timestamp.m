@@ -1,9 +1,6 @@
-import fscc
-
-if __name__ == '__main__':
-    p = fscc.Port(0)
-
-    status = p.append_timestamp
-
-    p.append_timestamp = True
-    p.append_timestamp = False
+fscc = mfscc();
+p = fscc.connect(0);
+status = fscc.get_append_timestamp(p)
+fscc.set_append_timestamp(p, 1);
+fscc.set_append_timestamp(p, 0);
+fscc.disconnect(p);

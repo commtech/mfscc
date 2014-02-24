@@ -1,9 +1,6 @@
-import fscc
-
-if __name__ == '__main__':
-    p = fscc.Port(0)
-
-    status = p.ignore_timeout
-
-    p.ignore_timeout = True
-    p.ignore_timeout = False
+fscc = mfscc();
+p = fscc.connect(0);
+status = fscc.get_ignore_timeout(p)
+fscc.set_ignore_timeout(p, 1);
+fscc.set_ignore_timeout(p, 0);
+fscc.disconnect(p);

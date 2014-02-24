@@ -2,7 +2,7 @@ function fscc_fun = mfscc()
     % This will pull in the library unless its already in
     if not(libisloaded('cfscc'))
         hfile = 'fscc.h';
-        [notfound, warnings] = loadlibrary('cfscc.dll',hfile);
+        [~, ~] = loadlibrary('cfscc.dll',hfile);
     end
     
     fscc_fun.get_append_status=@get_append_status;
@@ -123,9 +123,9 @@ function purge(handle, transmit, receive)
 end
 
 function [data, amount_read] = read_with_timeout(handle, timeout)
-    data = libpointer('voidPtr',[int8(str) 0]);
-    amount_read = libpointer('uint32Ptr');
-    success = calllib('cfscc', 'fscc_read', handle, data, 4096, amount_read, timeout);
+    data = libpointer('cstring','this is a string');
+    amount_read = libpointer('uint32Ptr', 0);
+    success = calllib('cfscc', 'fscc_read_with_timeout', handle, data, 4096, amount_read, timeout);
     if success == 16002
         err = MException('FSCC:BufferTooSmall', 'The buffer size is smaller than the next frame');
         throw(err)

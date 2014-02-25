@@ -1,38 +1,36 @@
-function fscc_fun = mfscc()
+function fscc = mfscc()
     % This will pull in the library unless its already in
     if not(libisloaded('cfscc'))
         hfile = 'fscc.h';
         [~, ~] = loadlibrary('cfscc.dll',hfile);
     end
     
-    fscc_fun.get_append_status=@get_append_status;
-    fscc_fun.enable_append_status=@enable_append_status;
-    fscc_fun.disable_append_status=@disable_append_status;
-    fscc_fun.get_append_timestamp=@get_append_timestamp;
-    fscc_fun.enable_append_timestamp=@enable_append_timestamp;
-    fscc_fun.disable_append_timestamp=@disable_append_timestamp;
-    fscc_fun.set_clock_frequency=@set_clock_frequency;
-    fscc_fun.connect=@connect;
-    fscc_fun.disconnect=@disconnect;
-    fscc_fun.get_ignore_timeout=@get_ignore_timeout;
-    fscc_fun.enable_ignore_timeout=@enable_ignore_timeout;
-    fscc_fun.disable_ignore_timeout=@disable_ignore_timeout;
-    fscc_fun.get_memory_cap=@get_memory_cap;
-    fscc_fun.set_memory_cap=@set_memory_cap;
-    fscc_fun.purge=@purge;
-    %fscc_fun.read=@read;    % Potential future development
-    fscc_fun.read_with_timeout=@read_with_timeout;
-    %fscc_fun.read_with_blocking=@read_with_blocking;
-    fscc_fun.set_registers=@set_registers;
-    fscc_fun.get_registers=@get_registers;
-    fscc_fun.get_rx_multiple=@get_rx_multiple;
-    fscc_fun.enable_rx_multiple=@enable_rx_multiple;
-    fscc_fun.disable_rx_multiple=@disable_rx_multiple;
-    fscc_fun.track_interrupts_with_blocking=@track_interrupts_with_blocking;
-    fscc_fun.track_interrupts_with_timeout=@track_interrupts_with_timeout;
-    fscc_fun.get_tx_modifiers=@get_tx_modifiers;
-    fscc_fun.set_tx_modifiers=@set_tx_modifiers;
-    fscc_fun.write=@write;
+    fscc.get_append_status=@get_append_status;
+    fscc.enable_append_status=@enable_append_status;
+    fscc.disable_append_status=@disable_append_status;
+    fscc.get_append_timestamp=@get_append_timestamp;
+    fscc.enable_append_timestamp=@enable_append_timestamp;
+    fscc.disable_append_timestamp=@disable_append_timestamp;
+    fscc.set_clock_frequency=@set_clock_frequency;
+    fscc.connect=@connect;
+    fscc.disconnect=@disconnect;
+    fscc.get_ignore_timeout=@get_ignore_timeout;
+    fscc.enable_ignore_timeout=@enable_ignore_timeout;
+    fscc.disable_ignore_timeout=@disable_ignore_timeout;
+    fscc.get_memory_cap=@get_memory_cap;
+    fscc.set_memory_cap=@set_memory_cap;
+    fscc.purge=@purge;
+    fscc_fun.read=@read;
+    fscc.set_registers=@set_registers;
+    fscc.get_registers=@get_registers;
+    fscc.get_rx_multiple=@get_rx_multiple;
+    fscc.enable_rx_multiple=@enable_rx_multiple;
+    fscc.disable_rx_multiple=@disable_rx_multiple;
+    fscc.track_interrupts_with_blocking=@track_interrupts_with_blocking;
+    fscc.track_interrupts_with_timeout=@track_interrupts_with_timeout;
+    fscc.get_tx_modifiers=@get_tx_modifiers;
+    fscc.set_tx_modifiers=@set_tx_modifiers;
+    fscc.write=@write;
 end
 
 function [status] = get_append_status(handle)

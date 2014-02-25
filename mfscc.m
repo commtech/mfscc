@@ -17,8 +17,8 @@ function fscc_fun = mfscc()
     fscc_fun.get_ignore_timeout=@get_ignore_timeout;
     fscc_fun.enable_ignore_timeout=@enable_ignore_timeout;
     fscc_fun.disable_ignore_timeout=@disable_ignore_timeout;
-    fscc_fun.get_memory_cap=@get_memory_cap;	% May not work
-    fscc_fun.set_memory_cap=@set_memory_cap;    % May not work
+    fscc_fun.get_memory_cap=@get_memory_cap;
+    fscc_fun.set_memory_cap=@set_memory_cap;
     fscc_fun.purge=@purge;
     %fscc_fun.read=@read;    % Potential future development
     fscc_fun.read_with_timeout=@read_with_timeout;
@@ -35,7 +35,7 @@ function fscc_fun = mfscc()
     fscc_fun.get_tx_modifiers=@get_tx_modifiers;
     fscc_fun.set_tx_modifiers=@set_tx_modifiers;
     %fscc_fun.write=@write; % Potential future development
-    fscc_fun.write_with_blocking=@write_with_blocking; % May not work
+    fscc_fun.write_with_blocking=@write_with_blocking;
 end
 
 function [status] = get_append_status(handle)
@@ -122,10 +122,10 @@ function purge(handle, transmit, receive)
     end
 end
 
-function [data, amount_read] = read_with_timeout(handle, timeout)
-    data = libpointer('cstring','this is a string');
+function [data_out, amount_read] = read_with_timeout(handle, timeout)
+    data = libpointer('cstring','');
     amount_read = libpointer('uint32Ptr', 0);
-    success = calllib('cfscc', 'fscc_read_with_timeout', handle, data, 4096, amount_read, timeout);
+    [success, ~, data_out] = calllib('cfscc', 'fscc_read_with_timeout', handle, data, 4096, amount_read, timeout);
     if success == 16002
         err = MException('FSCC:BufferTooSmall', 'The buffer size is smaller than the next frame');
         throw(err)

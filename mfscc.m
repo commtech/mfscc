@@ -34,8 +34,7 @@ function fscc_fun = mfscc()
     fscc_fun.track_interrupts_with_timeout=@track_interrupts_with_timeout;
     fscc_fun.get_tx_modifiers=@get_tx_modifiers;
     fscc_fun.set_tx_modifiers=@set_tx_modifiers;
-    %fscc_fun.write=@write; % Potential future development
-    fscc_fun.write=@write; % May not work
+    fscc_fun.write=@write;
 end
 
 function [status] = get_append_status(handle)

@@ -202,7 +202,7 @@ function [bytes_written] = write(handle, data, size)
     bytes_written = bytes_written.Value;
 end
 
-function [] = check_error(e)
+function check_error(e)
     if e == 0
     elseif e == 16000
         throw(MException('FSCC:Timeout', 'Command timed out (missing clock)'));

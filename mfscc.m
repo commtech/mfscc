@@ -91,6 +91,7 @@ end
 function [status] = get_ignore_timeout(handle)
     status = libpointer('uint32Ptr',0);
     calllib('cfscc', 'fscc_get_ignore_timeout', handle, status);
+    status = status.Value;
 end
 
 function enable_ignore_timeout(handle)
@@ -163,8 +164,9 @@ function [reg_out] = get_registers(handle)
 end
 
 function [status] = get_rx_multiple(handle)
-    status = libpointer('uint32Ptr',0);
+    status = libpointer('uint32Ptr', 0);
     calllib('cfscc', 'fscc_get_rx_multiple', handle, status);
+    status = status.Value;
 end
 
 function enable_rx_multiple(handle)
@@ -184,9 +186,11 @@ function [matches] = track_interrupts_with_timeout(handle, interrupts, timeout)
     matches = libpointer('uint32Ptr', 0);
     calllib('cfscc', 'fscc_track_interrupts_with_timeout', handle, interrupts, matches, timeout);
 end
+
 function [tx_modifiers] = get_tx_modifiers(handle)
-    tx_modifiers = libpointer('uint32Ptr',0);
+    tx_modifiers = libpointer('uint32Ptr', 0);
     calllib('cfscc', 'fscc_get_tx_modifiers', handle, tx_modifiers);
+    tx_modifiers = tx_modifiers.Value;
 end
 
 function set_tx_modifiers(handle, tx_modifiers)

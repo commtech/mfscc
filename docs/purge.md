@@ -15,6 +15,7 @@ locked in._
 | `fscc-windows` | `v2.0.0`
 | `fscc-linux`   | `v2.0.0`
 | `pyfscc`       | `v1.0.0`
+| `mfscc`        | `v1.0.0`
 
 
 ## Execute
@@ -33,30 +34,30 @@ def purge(self, tx=True, rx=True)
 
 ###### Examples
 Purge both the transmit and receive data.
-```python
-using Fscc;
+```MATLAB
+fscc = mfscc();
 ...
 
-p.Purge(True, True)
+fscc.purge(p, 1, 1);
 ```
 
 Purge only the transmit data.
-```python
-using Fscc;
+```MATLAB
+fscc = mfscc();
 ...
 
-p.Purge(True, False)
+fscc.purge(p, 1, 0);
 ```
 
 Purge only the receive data.
-```python
-using Fscc;
+```MATLAB
+fscc = mfscc();
 ...
 
-p.Purge(False, True)
+fscc.purge(p, 0, 1);
 ```
 
 
 ### Additional Resources
-- Complete example: [`examples\purge.py`](https://github.com/commtech/pyfscc/blob/master/examples/purge.py)
-- Implemenation details: [`fscc.py`](https://github.com/commtech/pyfscc/blob/master/fscc.py)
+- Complete example: [`examples\purge.m`](https://github.com/commtech/mfscc/blob/master/examples/purge.m)
+- Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

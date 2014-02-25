@@ -13,6 +13,7 @@ a few methods of enabling this additional data.
 | `fscc-windows` | `v2.0.0`
 | `fscc-linux`   | `v2.0.0`
 | `pyfscc`       | `v1.0.0`
+| `mfscc`        | `v1.0.0`
 
 
 ## Property
@@ -23,34 +24,34 @@ append_status = property(...)
 
 ## Get
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-status = p.append_status
+status = fscc.get_append_status(p);
 ```
 
 
 ## Enable
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-p.append_status = True
+fscc.enable_append_status(p);
 ```
 
 
 ## Disable
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-p.append_status = False
+fscc.disable_append_status(p);
 ```
 
 
 ### Additional Resources
-- Complete example: [`examples\append-status.py`](https://github.com/commtech/pyfscc/blob/master/examples/append-status.py)
-- Implemenation details: [`fscc.py`](https://github.com/commtech/pyfscc/blob/master/fscc.py)
+- Complete example: [`examples\append-status.m`](https://github.com/commtech/mfscc/blob/master/examples/append-status.m)
+- Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

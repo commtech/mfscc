@@ -18,6 +18,7 @@ in the 3.0 driver series._
 | `fscc-windows` | `v2.4.0`
 | `fscc-linux`   | `v2.4.0`
 | `pyfscc`       | `v2.0.0`
+| `mfscc`        | `v1.0.0`
 
 
 ## Property
@@ -28,34 +29,34 @@ append_timestamp = property(...)
 
 ## Get
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-status = p.append_timestamp
+status = fscc.get_append_timeout(p);
 ```
 
 
 ## Enable
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-p.append_timestamp = True
+fscc.set_append_status(p, 1);
 ```
 
 
 ## Disable
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-p.append_timestamp = False
+fscc.set_append_status(p, 0);
 ```
 
 
 ### Additional Resources
-- Complete example: [`examples\append-timestamp.py`](https://github.com/commtech/pyfscc/blob/master/examples/append-timestamp.py)
-- Implemenation details: [`fscc.py`](https://github.com/commtech/pyfscc/blob/master/fscc.py)
+- Complete example: [`examples\append-timestamp.m`](https://github.com/commtech/mfscc/blob/master/examples/append-timestamp.m)
+- Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

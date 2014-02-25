@@ -6,6 +6,7 @@
 | `fscc-windows` | `v2.0.0`
 | `fscc-linux`   | `v2.0.0`
 | `pyfscc`       | `v1.0.0`
+| `mfscc`        | `v1.0.0`
 
 
 ## Property
@@ -16,34 +17,34 @@ rx_multiple = property(...)
 
 ## Get
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-status = p.rx_multiple
+status = fscc.get_rx_multiple(p);
 ```
 
 
 ## Enable
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-p.rx_multiple = True
+fscc.enable_rx_multiple(p);
 ```
 
 
 ## Disable
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-p.rx_multiple = False
+fscc.disable_rx_multiple(p);
 ```
 
 
 ### Additional Resources
-- Complete example: [`examples\rx-multiple.py`](https://github.com/commtech/pyfscc/blob/master/examples/rx-multiple.py)
-- Implemenation details: [`fscc.py`](https://github.com/commtech/pyfscc/blob/master/fscc.py)
+- Complete example: [`examples\rx-multiple.m`](https://github.com/commtech/mfscc/blob/master/examples/rx-multiple.m)
+- Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

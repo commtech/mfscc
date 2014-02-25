@@ -195,22 +195,31 @@ end
 
 function [bytes_written] = write(handle, data, size)
     bytes_written = libpointer('uint32Ptr',0);
-    success = calllib('cfscc', 'fscc_write_with_blocking', handle, data, size, bytes_written);
-    if success == 16002
-        err = MException('FSCC:BufferTooSmall', 'The write size exceeds the output memory usage cap');
-        throw(err)
-    elseif success == 16000
-        err = MException('FSCC:Timeout', 'Command timed out (missing clock)');
-        throw(err)
-    elseif success == 16001
-        err = MException('FSCC:IncorrectMode', 'Using the synchronous port while in asynchronous mode');
-        throw(err)
-    end
+    e = calllib('cfscc', 'fscc_write_with_blocking', handle, data, size, bytes_written);
+
+    check_error(e)
+
     bytes_written = bytes_written.Value;
 end
 
-
-
+function [] = check_error(e)
+    if e == 0
+    elseif e == 16000
+        throw(MException('FSCC:Timeout', 'Command timed out (missing clock)'));
+    elseif e == 16001
+        throw(MException('FSCC:IncorrectMode', 'Incorrect mode'));
+    elseif e == 16002
+        throw(MException('FSCC:BufferTooSmall', 'Buffer too small'));
+    elseif e == 16003
+        throw(MException('FSCC:PortNotFound', 'Port not found'));
+    elseif e == 16004
+        throw(MException('FSCC:InvalidAccess', 'Port not found'));
+    elseif e == 16005
+        throw(MException('FSCC:InvalidParameter', 'Invalid parameter'));
+    else
+        throw(MException('FSCC:UnknownError', 'Unknown error'));
+    end
+end
 
 
 

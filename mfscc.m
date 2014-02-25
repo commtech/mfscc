@@ -40,48 +40,45 @@ end
 
 function [status] = get_append_status(handle)
     status = libpointer('uint32Ptr',0);
-    calllib('cfscc', 'fscc_get_append_status', handle, status);
+    e = calllib('cfscc', 'fscc_get_append_status', handle, status);
+    check_error(e)
 end
 
 function enable_append_status(handle)
-    calllib('cfscc', 'fscc_enable_append_status', handle);
+    e = calllib('cfscc', 'fscc_enable_append_status', handle);
+    check_error(e)
 end
 
 function disable_append_status(handle)
-    calllib('cfscc', 'fscc_disable_append_status', handle);
+    e = calllib('cfscc', 'fscc_disable_append_status', handle);
+    check_error(e)
 end
 
 function [status] = get_append_timestamp(handle)
     status = libpointer('uint32Ptr',0);
-    calllib('cfscc', 'fscc_get_append_timestamp', handle, status);
+    e = calllib('cfscc', 'fscc_get_append_timestamp', handle, status);
+    check_error(e)
 end
 
 function enable_append_timestamp(handle)
-    calllib('cfscc', 'fscc_enable_append_timestamp', handle);
+    e = calllib('cfscc', 'fscc_enable_append_timestamp', handle);
+    check_error(e)
 end
 
 function disable_append_timestamp(handle)
-    calllib('cfscc', 'fscc_disable_append_timestamp', handle);
+    e = calllib('cfscc', 'fscc_disable_append_timestamp', handle);
+    check_error(e)
 end
 
 function set_clock_frequency(handle, frequency)
-    success = calllib('cfscc', 'fscc_set_clock_frequency', handle, frequency);
-     if success == 16005
-        err = MException('FSCC:InvalidParameter', 'Clock frequency is out of range (15,000 to 270,000,000)');
-        throw(err)
-     end
+    e = calllib('cfscc', 'fscc_set_clock_frequency', handle, frequency);
+    check_error(e)
 end
 
 function [handle] = connect(port)
     handle = libpointer;
-    success = calllib('cfscc', 'fscc_connect', port, handle);
-    if success == 16003
-        err = MException('FSCC:PortNotFound', 'Port not found - board installed?');
-        throw(err)
-    elseif success == 16004
-        err = MException('FSCC:InvalidAccess', 'Insufficient permissions.');
-        throw(err)
-    end
+    e = calllib('cfscc', 'fscc_connect', port, handle);
+    check_error(e)
 end
 
 function disconnect(handle)
@@ -90,50 +87,46 @@ end
 
 function [status] = get_ignore_timeout(handle)
     status = libpointer('uint32Ptr',0);
-    calllib('cfscc', 'fscc_get_ignore_timeout', handle, status);
+    e = calllib('cfscc', 'fscc_get_ignore_timeout', handle, status);
+    check_error(e)
     status = status.Value;
 end
 
 function enable_ignore_timeout(handle)
-    calllib('cfscc', 'fscc_enable_ignore_timeout', handle);
+    e = calllib('cfscc', 'fscc_enable_ignore_timeout', handle);
+    check_error(e)
 end
 
 function disable_ignore_timeout(handle)
-    calllib('cfscc', 'fscc_disable_ignore_timeout', handle);
+    e = calllib('cfscc', 'fscc_disable_ignore_timeout', handle);
+    check_error(e)
 end
 
 function mem_caps = get_memory_cap(handle)
     fscc_memory_cap = struct('input',int32(-2),'output',int32(-2));
     mem_struct = libpointer('fscc_memory_cap',fscc_memory_cap);
-    calllib('cfscc', 'fscc_get_memory_cap', handle, mem_struct);
+    e = calllib('cfscc', 'fscc_get_memory_cap', handle, mem_struct);
+    check_error(e)
     mem_caps = get(mem_struct, 'Value');
 end
  
 function set_memory_cap(handle, input, output)
     fscc_memory_cap = struct('input', int32(input), 'output', int32(output));
     mem_struct = libpointer('fscc_memory_cap', fscc_memory_cap);
-    calllib('cfscc', 'fscc_set_memory_cap', handle, mem_struct);
+    e = calllib('cfscc', 'fscc_set_memory_cap', handle, mem_struct);
+    check_error(e)
 end
 
 function purge(handle, transmit, receive)
-    success = calllib('cfscc', 'fscc_purge', handle, transmit, receive);
-    if success == 16000
-        err = MException('FSCC:Timeout', 'Command timed out (missing clock)');
-        throw(err)
-    end
+    e = calllib('cfscc', 'fscc_purge', handle, transmit, receive);
+    check_error(e)
 end
 
 function [data, amount_read] = read_with_timeout(handle, timeout)
     data = libpointer('cstring','this is a string');
     amount_read = libpointer('uint32Ptr', 0);
-    success = calllib('cfscc', 'fscc_read_with_timeout', handle, data, 4096, amount_read, timeout);
-    if success == 16002
-        err = MException('FSCC:BufferTooSmall', 'The buffer size is smaller than the next frame');
-        throw(err)
-    elseif success == 16001
-        err = MException('FSCC:IncorrectMode', 'Using the synchronous port while in asynchronous mode');
-        throw(err)
-    end
+    e = calllib('cfscc', 'fscc_read_with_timeout', handle, data, 4096, amount_read, timeout);
+    check_error(e)
 end
 
 %function [data, amount_read] = read_with_blocking(handle,
@@ -153,56 +146,63 @@ function set_registers(handle, registers)
     end
     registers_in = struct('reserved1',double_one,'FIFOT',reg_map('FIFOT'),'reserved2',double_one,'CMDR',reg_map('CMDR'),'STAR', -1,'CCR0',reg_map('CCR0'),'CCR1',reg_map('CCR1'),'CCR2',reg_map('CCR2'),'BGR',reg_map('BGR'),'SSR',reg_map('SSR'),'SMR',reg_map('SMR'),'TSR',reg_map('TSR'),'TMR',reg_map('TMR'),'RAR',reg_map('RAR'),'RAMR',reg_map('RAMR'),'PPR',reg_map('PPR'),'TCR',reg_map('TCR'),'VSTR',reg_map('VSTR'),'reserved3',-1,'IMR',reg_map('IMR'),'DPLLR',reg_map('DPLLR'),'FCR',reg_map('FCR'));
     mem_struct = libstruct('fscc_registers',registers_in);
-    calllib('cfscc', 'fscc_set_registers', handle, mem_struct);
+    e = calllib('cfscc', 'fscc_set_registers', handle, mem_struct);    
+    check_error(e)
 end
 
 function [reg_out] = get_registers(handle)
     reg_struct = struct('reserved1',-1,'FIFOT',-2,'reserved2',-1,'CMDR',-1,'STAR', -2,'CCR0',-2,'CCR1',-2,'CCR2',-2,'BGR',-2,'SSR',-2,'SMR',-2,'TSR',-2,'TMR',-2,'RAR',-2,'RAMR',-2,'PPR',-2,'TCR',-2,'VSTR',-2,'reserved3',-1,'IMR',-2,'DPLLR',-2,'FCR',-2);
     registers = libpointer('fscc_registers',reg_struct);
-    calllib('cfscc', 'fscc_get_registers', handle, registers)
+    e = calllib('cfscc', 'fscc_get_registers', handle, registers)
+    check_error(e)
     reg_out = get(registers, 'Value');
 end
 
 function [status] = get_rx_multiple(handle)
     status = libpointer('uint32Ptr', 0);
-    calllib('cfscc', 'fscc_get_rx_multiple', handle, status);
+    e = calllib('cfscc', 'fscc_get_rx_multiple', handle, status);
+    check_error(e)
     status = status.Value;
 end
 
 function enable_rx_multiple(handle)
-    calllib('cfscc', 'fscc_enable_rx_multiple', handle);
+    e = calllib('cfscc', 'fscc_enable_rx_multiple', handle);    
+    check_error(e)
 end
 
 function disable_rx_multiple(handle)
-    calllib('cfscc', 'fscc_disable_rx_multiple', handle);
+    e = calllib('cfscc', 'fscc_disable_rx_multiple', handle);
+    check_error(e)
 end
 
 function [matches] = track_interrupts_with_blocking(handle, interrupts)
     matches = libpointer('uint32Ptr', 0);
-    calllib('cfscc', 'fscc_track_interrupts_with_blocking', handle, interrupts, matches);
+    e = calllib('cfscc', 'fscc_track_interrupts_with_blocking', handle, interrupts, matches);    
+    check_error(e)
 end
 
 function [matches] = track_interrupts_with_timeout(handle, interrupts, timeout)
     matches = libpointer('uint32Ptr', 0);
-    calllib('cfscc', 'fscc_track_interrupts_with_timeout', handle, interrupts, matches, timeout);
+    e = calllib('cfscc', 'fscc_track_interrupts_with_timeout', handle, interrupts, matches, timeout);
+    check_error(e)
 end
 
 function [tx_modifiers] = get_tx_modifiers(handle)
     tx_modifiers = libpointer('uint32Ptr', 0);
-    calllib('cfscc', 'fscc_get_tx_modifiers', handle, tx_modifiers);
+    e = calllib('cfscc', 'fscc_get_tx_modifiers', handle, tx_modifiers);
+    check_error(e)
     tx_modifiers = tx_modifiers.Value;
 end
 
 function set_tx_modifiers(handle, tx_modifiers)
-    calllib('cfscc', 'fscc_set_tx_modifiers', handle, tx_modifiers);
+    e = calllib('cfscc', 'fscc_set_tx_modifiers', handle, tx_modifiers);
+    check_error(e)
 end
 
 function [bytes_written] = write(handle, data, size)
     bytes_written = libpointer('uint32Ptr',0);
     e = calllib('cfscc', 'fscc_write_with_blocking', handle, data, size, bytes_written);
-
     check_error(e)
-
     bytes_written = bytes_written.Value;
 end
 

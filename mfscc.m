@@ -20,7 +20,7 @@ function fscc = mfscc()
     fscc.get_memory_cap=@get_memory_cap;
     fscc.set_memory_cap=@set_memory_cap;
     fscc.purge=@purge;
-    fscc_fun.read=@read;
+    fscc.read=@read;
     fscc.set_registers=@set_registers;
     fscc.get_registers=@get_registers;
     fscc.get_rx_multiple=@get_rx_multiple;
@@ -119,11 +119,26 @@ function purge(handle, tx, rx)
     check_error(e);
 end
 
-%TODO: Merge timeout with blocking
-function [data, amount_read] = read_with_timeout(handle, timeout)
-    data = libpointer('cstring','this is a string');
-    amount_read = libpointer('uint32Ptr', 0);
-    e = calllib('cfscc', 'fscc_read_with_timeout', handle, data, 4096, amount_read, timeout);
+function [data, bytes_read] = read(handle, timeout, size)
+    if ~exist('timeout', 'var')
+        timeout = 0;
+    end
+    if ~exist('size', 'var')
+        size = 4096;
+    end
+
+    data_ptr = libpointer('cstring', 'this is a string');
+    bytes_read_ptr  = libpointer('uint32Ptr', 0);
+
+    if timeout
+        e = calllib('cfscc', 'fscc_read_with_timeout', handle, data_ptr, size, bytes_read_ptr, timeout);
+    else
+        e = calllib('cfscc', 'fscc_read_with_blocking', handle, data_ptr, size, bytes_read_ptr);
+    end
+
+    data = data_ptr.Value;
+    bytes_read = bytes_read_ptr.Value;
+
     check_error(e);
 end
 

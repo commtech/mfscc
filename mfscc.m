@@ -193,9 +193,9 @@ function set_tx_modifiers(handle, tx_modifiers)
     calllib('cfscc', 'fscc_set_tx_modifiers', handle, tx_modifiers);
 end
 
-function [written] = write_with_blocking(handle, data, size)
-    written = libpointer('uint32Ptr',0);
-    success = calllib('cfscc', 'fscc_write_with_blocking', handle, data, size, written);
+function [bytes_written] = write_with_blocking(handle, data, size)
+    bytes_written = libpointer('uint32Ptr',0);
+    success = calllib('cfscc', 'fscc_write_with_blocking', handle, data, size, bytes_written);
     if success == 16002
         err = MException('FSCC:BufferTooSmall', 'The write size exceeds the output memory usage cap');
         throw(err)
@@ -206,6 +206,7 @@ function [written] = write_with_blocking(handle, data, size)
         err = MException('FSCC:IncorrectMode', 'Using the synchronous port while in asynchronous mode');
         throw(err)
     end
+    bytes_written = bytes_written.Value;
 end
 
 

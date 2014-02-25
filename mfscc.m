@@ -35,7 +35,7 @@ function fscc_fun = mfscc()
     fscc_fun.get_tx_modifiers=@get_tx_modifiers;
     fscc_fun.set_tx_modifiers=@set_tx_modifiers;
     %fscc_fun.write=@write; % Potential future development
-    fscc_fun.write_with_blocking=@write_with_blocking; % May not work
+    fscc_fun.write=@write; % May not work
 end
 
 function [status] = get_append_status(handle)
@@ -193,7 +193,7 @@ function set_tx_modifiers(handle, tx_modifiers)
     calllib('cfscc', 'fscc_set_tx_modifiers', handle, tx_modifiers);
 end
 
-function [bytes_written] = write_with_blocking(handle, data, size)
+function [bytes_written] = write(handle, data, size)
     bytes_written = libpointer('uint32Ptr',0);
     success = calllib('cfscc', 'fscc_write_with_blocking', handle, data, size, bytes_written);
     if success == 16002

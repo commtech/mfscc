@@ -198,8 +198,9 @@ function set_tx_modifiers(handle, tx_modifiers)
     check_error(e);
 end
 
-function [bytes_written] = write(handle, data, size)
+function [bytes_written] = write(handle, data)
     bytes_written_ptr = libpointer('uint32Ptr', 0);
+    size = length(data);
     e = calllib('cfscc', 'fscc_write_with_blocking', handle, data, size, bytes_written_ptr);
     check_error(e);
     bytes_written = bytes_written_ptr.Value;

@@ -42,6 +42,7 @@ function [status] = get_append_status(handle)
     status = libpointer('uint32Ptr',0);
     e = calllib('cfscc', 'fscc_get_append_status', handle, status);
     check_error(e)
+    status = status.Value;
 end
 
 function enable_append_status(handle)
@@ -58,6 +59,7 @@ function [status] = get_append_timestamp(handle)
     status = libpointer('uint32Ptr',0);
     e = calllib('cfscc', 'fscc_get_append_timestamp', handle, status);
     check_error(e)
+    status = status.Value;
 end
 
 function enable_append_timestamp(handle)

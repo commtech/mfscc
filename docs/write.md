@@ -7,6 +7,7 @@
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
 | `pyfscc`       | `v1.0.0`
+| `mfscc`        | `v1.0.0`
 
 
 ## Write
@@ -30,13 +31,13 @@ def write(self, data):
 
 ###### Examples
 ```c
-import fscc
+fscc = mfscc();
 ...
 
-p.write(b'Hello world!')
+written = fscc.write_with_blocking(p, 'Hello world!', 12);
 ```
 
 
 ### Additional Resources
-- Complete example: [`examples\tutorial.py`](https://github.com/commtech/pyfscc/blob/master/examples/tutorial.py)
-- Implemenation details: [`fscc.py`](https://github.com/commtech/pyfscc/blob/master/fscc.py)
+- Complete example: [`examples\tutorial.m`](https://github.com/commtech/mfscc/blob/master/examples/tutorial.m)
+- Implemenation details: [`fscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

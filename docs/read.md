@@ -26,6 +26,7 @@ mode and do a read.
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
 | `pyfscc`       | `v1.0.0`
+| `mfscc`        | `v1.0.0`
 
 
 ## Read
@@ -44,14 +45,14 @@ def read(self, timeout=None, size=4096):
 | `IncorrectModeError`  | `OSError`      | Using the synchronous port while in asynchronous mode
 
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
-
-p.read(100)
+timeout = 5;
+[read_data, read_size] = fscc.read_with_timeout(p, timeout);
 ```
 
 
 ### Additional Resources
-- Complete example: [`examples\tutorial.py`](https://github.com/commtech/netfscc/blob/master/examples/tutorial.py)
-- Implemenation details: [`fscc.py`](https://github.com/commtech/netfscc/blob/master/fscc.py)
+- Complete example: [`examples\tutorial.m`](https://github.com/commtech/mfscc/blob/master/examples/tutorial.m)
+- Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

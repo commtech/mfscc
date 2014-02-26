@@ -29,6 +29,7 @@ locked in._
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
 | `pyfscc`       | `v1.0.0`
+| `mfscc`        | `v1.0.0`
 
 
 ## Property
@@ -39,26 +40,26 @@ registers = property(...)
 
 ## Set
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
-
-p.registers.CCR0 = 0x0011201c
-p.registers.BGR = 10
+key_set = {'CCR0', 'BGR'};
+val_set = {1122332, 16};
+reg_map = containers.Map(key_set, val_set);
+fscc.set_registers(p, reg_map);
 ```
 
 
 ## Get
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-ccr1 = p.registers.CCR1
-ccr2 = p.registers.CCR2
+registers = fscc.get_registers(p);
 ```
 
 
 ### Additional Resources
-- Complete example: [`examples\registers.py`](https://github.com/commtech/pyfscc/blob/master/examples/registers.py)
-- Implemenation details: [`fscc.py`](https://github.com/commtech/pyfscc/blob/master/fscc.py)
+- Complete example: [`examples\registers.m`](https://github.com/commtech/mfscc/blob/master/examples/registers.m)
+- Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

@@ -13,6 +13,7 @@
 | `fscc-windows` | `v2.0.0`
 | `fscc-linux`   | `v2.0.0`
 | `pyfscc`       | `v1.0.0`
+| `mfscc`        | `v1.0.0`
 
 
 ## Property
@@ -23,24 +24,24 @@ tx_modifiers = property(...)
 
 ## Get
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-modifiers = p.tx_modifiers
+modifiers = fscc.get_tx_modifiers(p);
 ```
 
 
 ## Set
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
-
-p.tx_modifiers = TXT | XREP
+modifiers = bitor(1, 2);
+fscc.set_tx_modifiers(p, modifiers);
 ```
 
 
 ### Additional Resources
-- Complete example: [`examples\tx-modifiers.py`](https://github.com/commtech/pyfscc/blob/master/examples/tx-modifiers.py)
-- Implemenation details: [`fscc.py`](https://github.com/commtech/pyfscc/blob/master/fscc.py)
+- Complete example: [`examples\tx-modifiers.m`](https://github.com/commtech/mfscc/blob/master/examples/tx-modifiers.m)
+- Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

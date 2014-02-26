@@ -24,6 +24,7 @@ option._
 | `fscc-windows` | `v2.0.0`
 | `fscc-linux`   | `v2.0.0`
 | `pyfscc`       | `v1.0.0`
+| `mfscc`        | `v1.0.0`
 
 ## Property
 ```python
@@ -37,14 +38,14 @@ clock_frequency = property(...)
 | `InvalidParameterError` | `ValueError`    | Clock frequency is out of range (15,000 to 270,000,000)
 
 ###### Examples
-```python
-import fscc
+```MATLAB
+fscc = mfscc();
 ...
 
-p.clock_frequency = 18432000
+fscc.set_clock_frequency(p, 18432000);
 ```
 
 
 ### Additional Resources
-- Complete example: [`examples\clock-frequency.py`](https://github.com/commtech/pyfscc/blob/master/examples/clock-frequency.py)
-- Implemenation details: [`fscc.py`](https://github.com/commtech/pyfscc/blob/master/fscc.py)
+- Complete example: [`examples\clock-frequency.m`](https://github.com/commtech/mfscc/blob/master/examples/clock-frequency.m)
+- Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

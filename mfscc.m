@@ -1,10 +1,9 @@
 function fscc = mfscc()
     % This will pull in the library unless its already in
     if not(libisloaded('cfscc'))
-        hfile = 'fscc.h';
-        [~, ~] = loadlibrary('cfscc.dll',hfile);
+        [~, ~] = loadlibrary('cfscc', 'fscc.h');
     end
-    
+
     fscc.get_append_status=@get_append_status;
     fscc.enable_append_status=@enable_append_status;
     fscc.disable_append_status=@disable_append_status;
@@ -127,17 +126,20 @@ function [data, bytes_read] = read(handle, timeout, size)
         size = 4096;
     end
 
-    data_ptr = libpointer('cstring', 'this is a string');
+    data_ptr = libpointer('cstring', char(zeros(1, size + 1)));
     bytes_read_ptr  = libpointer('uint32Ptr', 0);
 
     if timeout
-        e = calllib('cfscc', 'fscc_read_with_timeout', handle, data_ptr, size, bytes_read_ptr, timeout);
+        [e, ~, data_ptr, ~] = calllib('cfscc', 'fscc_read_with_timeout', handle, data_ptr, size, bytes_read_ptr, timeout);
     else
-        e = calllib('cfscc', 'fscc_read_with_blocking', handle, data_ptr, size, bytes_read_ptr);
+        [e, ~, data_ptr, ~] = calllib('cfscc', 'fscc_read_with_blocking', handle, data_ptr, size, bytes_read_ptr);
     end
 
-    data = data_ptr.Value;
     bytes_read = bytes_read_ptr.Value;
+    
+    if bytes_read
+        data = data_ptr(1:bytes_read + 1)
+    end
 
     check_error(e);
 end

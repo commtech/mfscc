@@ -8,14 +8,18 @@
 | `pyfscc`       | `v1.0.0`
 | `mfscc`        | `v1.0.0`
 
-
-## Property
-```python
-memory_cap = property(...)
-```
-
-
 ## Get
+```[int input, int output] = fscc.get_memory_cap(fscc_handle p)```
+
+| Parameter      | Type          | Description
+| -------------- | ------------- | ------------------------
+| `p`            | `fscc_handle` | The handle to your port
+
+| Output         | Value
+|--------------- | --------------------------
+| `input`        | Current input memory cap
+| `output`       | Current output memory cap
+
 ###### Examples
 ```python
 fscc = mfscc();
@@ -26,6 +30,14 @@ fscc = mfscc();
 
 
 ## Set
+```fscc.get_memory_cap(fscc_handle p, int input, int output)```
+
+| Parameter      | Type          | Description
+| -------------- | ------------- | ------------------------------
+| `p`            | `fscc_handle` | The handle to your port
+| `input`        | `int`         | The desired input memory cap
+| `output`       | `int`         | The desired output memory cap
+
 ###### Examples
 ```python
 fscc = mfscc();

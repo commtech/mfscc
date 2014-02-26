@@ -15,7 +15,7 @@ desired baud rate using the BGR register.
 
 _If you are receiving timeout errors when using slow data rates you can bypass
 the safety checks by using the 
-[`ignore_timeout`](https://github.com/commtech/pyfscc/blob/master/docs/ignore-timeout.md)
+[`ignore_timeout`](https://github.com/commtech/mfscc/blob/master/docs/ignore-timeout.md)
 option._
 
 ###### Driver Support
@@ -26,16 +26,17 @@ option._
 | `pyfscc`       | `v1.0.0`
 | `mfscc`        | `v1.0.0`
 
-## Property
-```python
-clock_frequency = property(...)
-```
-
 ## Set
+```fscc.set_clock_frequency(fscc_handle p, int frequency)```
+
+| Parameter      | Type           | Description
+| -------------- | -------------- | -----------------------------------------------
+| `p`            | `fscc_handle`  | The handle to your port
+| `frequency`    | `unsigned int` | Desired clock frequency (15,000 to 270,000,000)
 
 | Exception               | Base Exception | Cause
 | ----------------------- | -------------- | ---------------------------------
-| `InvalidParameterError` | `ValueError`    | Clock frequency is out of range (15,000 to 270,000,000)
+| `InvalidParameterError` | `ValueError`   | Clock frequency is out of range (15,000 to 270,000,000)
 
 ###### Examples
 ```MATLAB

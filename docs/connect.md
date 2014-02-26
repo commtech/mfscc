@@ -14,14 +14,15 @@ if you would like to use the asynchronous functionality.
 
 
 ## Connect
-```MATLAB
-def __init__(self, port_num, append_status=True, append_timestamp=True)
-```
+```fscc_handle p = fscc.connect(int port_num)```
 
-| Exception            | Base Exception | Cause
-| -------------------- | -------------- |-------------------------
-| `PortNotFoundError`  | `OSError`      | Port not found
-| `InvalidAccessError` | `OSError`      | Insufficient permissions
+| Parameter      | Type           | Description
+| -------------- | -------------- | ---------------------------------
+| `port_num`     | `unsigned int` | The port number you want to open
+
+| Output         | Value
+|--------------- | --------------------------
+| `p`            | Pointer to fscc_handle
 
 ###### Examples
 ```MATLAB

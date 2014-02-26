@@ -21,13 +21,17 @@ in the 3.0 driver series._
 | `mfscc`        | `v1.0.0`
 
 
-## Property
-```python
-append_timestamp = property(...)
-```
-
-
 ## Get
+```int status = fscc.get_append_timestamp(fscc_handle p)```
+
+| Parameter      | Type          | Description
+| -------------- | ------------- | ------------------------
+| `p`            | `fscc_handle` | The handle to your port
+
+| Output       | Value
+|------------- | --------------------------
+| `status`     | Whether append timestamp is enabled(1) or disabled(0)
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
@@ -38,22 +42,34 @@ status = fscc.get_append_timeout(p);
 
 
 ## Enable
+```fscc.enable_append_timestamp(fscc_handle p)```
+
+| Parameter      | Type          | Description
+| -------------- | ------------- | ------------------------
+| `p`            | `fscc_handle` | The handle to your port
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
 ...
 
-fscc.set_append_status(p, 1);
+fscc.enable_append_timestamp(p);
 ```
 
 
 ## Disable
+```fscc.disable_append_timestamp(fscc_handle p)```
+
+| Parameter      | Type          | Description
+| -------------- | ------------- | ------------------------
+| `p`            | `fscc_handle` | The handle to your port
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
 ...
 
-fscc.set_append_status(p, 0);
+fscc.disable_append_timestamp(p);
 ```
 
 

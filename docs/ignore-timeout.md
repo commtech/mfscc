@@ -8,13 +8,17 @@
 | `pyfscc`       | `v1.0.0`
 | `mfscc`        | `v1.0.0`
 
-## Property
-```python
-ignore_timeout = property(...)
-```
-
-
 ## Get
+```int status = fscc.get_ignore_timeout(fscc_handle p)```
+
+| Parameter      | Type          | Description
+| -------------- | ------------- | ------------------------
+| `p`            | `fscc_handle` | The handle to your port
+
+| Output        | Value
+|-------------- | --------------------------
+| `status`      | Whether ignore timeout is enabled(1) or disabled(0)
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
@@ -25,6 +29,12 @@ status = fscc.get_ignore_timeout(p);
 
 
 ## Enable
+```fscc.enable_append_timestamp(fscc_handle p)```
+
+| Parameter      | Type          | Description
+| -------------- | ------------- | ------------------------
+| `p`            | `fscc_handle` | The handle to your port
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
@@ -35,8 +45,14 @@ fscc.enable_ignore_timeout(p);
 
 
 ## Disable
+```fscc.disable_append_timestamp(fscc_handle p)```
+
+| Parameter      | Type          | Description
+| -------------- | ------------- | ------------------------
+| `p`            | `fscc_handle` | The handle to your port
+
 ###### Examples
-```python
+```MATLAB
 fscc = mfscc();
 ...
 

@@ -15,14 +15,17 @@
 | `pyfscc`       | `v1.0.0`
 | `mfscc`        | `v1.0.0`
 
-
-## Property
-```python
-tx_modifiers = property(...)
-```
-
-
 ## Get
+```int modifiers = fscc.get_tx_modifiers(fscc_handle p)```
+
+| Parameter      | Type             | Description
+| -------------- | ---------------- | -------------------------------------------
+| `p`            | `fscc_handle`    | The handle to your port
+
+| Output         | Value
+| -------------- | ----------------------------------
+| `modifiers`    | The modifiers currently enabled
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
@@ -33,12 +36,19 @@ modifiers = fscc.get_tx_modifiers(p);
 
 
 ## Set
+```fscc.set_tx_multiple(fscc_handle p, int modifiers)```
+
+| Parameter      | Type             | Description
+| -------------- | ---------------- | -------------------------------------------
+| `p`            | `fscc_handle`    | The handle to your port
+| `modifiers`    | `int`            | The tx modifiers you would like enabled
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
 ...
-modifiers = bitor(1, 2);
-fscc.set_tx_modifiers(p, modifiers);
+
+fscc.set_tx_modifiers(p, fscc.TXEXT() | fscc.XREP());
 ```
 
 

@@ -18,19 +18,13 @@ locked in._
 | `mfscc`        | `v1.0.0`
 
 
-## Execute
-```python
-def purge(self, tx=True, rx=True)
-```
+`fscc.purge(fscc_handle p, bool tx, bool rx)`
 
-| Parameter | Type      | Default | Description
-| --------- | --------- | ------- | ----------------------------------
-| `tx`      | `Boolean` | True    | Whether to purge the transmit data
-| `rx`      | `Boolean` | True    | Whether to purge the receive data
-
-| Exception      | Base Exception | Cause
-| -------------- | -------------- | ---------------------------------
-| `TimeoutError` | `OSError`      | Command timed out (missing clock)
+| Parameter | Type          | Description
+| --------- | ------------- | ----------------------------------
+| `p`       | `fscc_handle` | The handle to your port
+| `tx`      | `Boolean`     | Whether to purge the transmit data
+| `rx`      | `Boolean`     | Whether to purge the receive data
 
 ###### Examples
 Purge both the transmit and receive data.
@@ -38,7 +32,7 @@ Purge both the transmit and receive data.
 fscc = mfscc();
 ...
 
-fscc.purge(p, 1, 1);
+fscc.purge(p, true, true);
 ```
 
 Purge only the transmit data.
@@ -46,7 +40,7 @@ Purge only the transmit data.
 fscc = mfscc();
 ...
 
-fscc.purge(p, 1, 0);
+fscc.purge(p, true, false);
 ```
 
 Purge only the receive data.
@@ -54,7 +48,7 @@ Purge only the receive data.
 fscc = mfscc();
 ...
 
-fscc.purge(p, 0, 1);
+fscc.purge(p, false, true);
 ```
 
 

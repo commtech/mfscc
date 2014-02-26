@@ -17,7 +17,7 @@ All of the registers, except FCR, are tied to a single port. FCR on the other ha
 is shared between two ports on a card. You can differentiate between which FCR 
 settings affects what port by the A/B labels. A for port 0 and B for port 1.
 
-_A [`purge()`](https://github.com/commtech/pyfscc/blob/master/docs/purge.md) (receive side)
+_A [`purge()`](https://github.com/commtech/mfscc/blob/master/docs/purge.md) (receive side)
 is required after changing the `MODE` bits in the `CCR0` register. If you need to change
 the `MODE` bits but don't have a clock present, change the `CM` bits to `0x7` temporarily. This will give 
 you an internal clock to switch modes. You can then switch to your desired `CM` now that your `MODE` is 
@@ -32,25 +32,34 @@ locked in._
 | `mfscc`        | `v1.0.0`
 
 
-## Property
-```python
-registers = property(...)
-```
-
-
 ## Set
+```fscc.set_registers(fscc_handle p, fscc_registers registers)```
+
+| Parameter      | Type             | Description
+| -------------- | ---------------- | -------------------------------------------
+| `p`            | `fscc_handle`    | The handle to your port
+| `registers`    | `fscc_registers` | The registers and values needing to be set
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
 ...
-key_set = {'CCR0', 'BGR'};
-val_set = {1122332, 16};
-reg_map = containers.Map(key_set, val_set);
-fscc.set_registers(p, reg_map);
+regs = {'CCR0', hex2dec('0011201c'), 'BGR', 10};
+fscc.set_registers(p, regs);
 ```
 
 
 ## Get
+```registers = fscc.get_registers(fscc_handle p)```
+
+| Parameter      | Type             | Description
+| -------------- | ---------------- | -------------------------
+| `p`            | `fscc_handle`    | The handle to your port
+
+| Output         | Value
+| -------------- | -------------------------------
+| `registers`    | The registers and their values.
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();

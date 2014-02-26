@@ -30,8 +30,8 @@ mode and do a read.
 
 
 ## Read
-```python
-def read(self, timeout=None, size=4096):
+```MATLAB
+[data, bytes_read] = fscc.read(fscc_handle p, int timeout, int size)
 ```
 
 | Parameter    | Type  | Default | Description
@@ -49,7 +49,8 @@ def read(self, timeout=None, size=4096):
 fscc = mfscc();
 ...
 timeout = 5;
-[read_data, read_size] = fscc.read_with_timeout(p, timeout);
+size = 4096;
+[read_data, read_size] = fscc.read(p, timeout, size);
 ```
 
 

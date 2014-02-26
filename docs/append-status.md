@@ -16,13 +16,17 @@ a few methods of enabling this additional data.
 | `mfscc`        | `v1.0.0`
 
 
-## Property
-```python
-append_status = property(...)
-```
-
-
 ## Get
+```int status = fscc.get_append_status(fscc_handle p)```
+
+| Parameter      | Type          | Description
+| -------------- | ------------- | ------------------------
+| `p`            | `fscc_handle` | The handle to your port
+
+| Output      | Value
+|------------ | ------------------------
+| `status`    | Whether append status is enabled(1) or disabled(0)
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
@@ -31,8 +35,14 @@ fscc = mfscc();
 status = fscc.get_append_status(p);
 ```
 
-
 ## Enable
+```fscc.enable_append_status(fscc_handle p)```
+
+| Parameter      | Type          | Description
+| -------------- | ------------- | ------------------------
+| `p`            | `fscc_handle` | The handle to your port
+
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
@@ -43,6 +53,12 @@ fscc.enable_append_status(p);
 
 
 ## Disable
+```fscc.disable_append_status(fscc_handle p)```
+
+| Parameter      | Type          | Description
+| -------------- | ------------- | ------------------------
+| `p`            | `fscc_handle` | The handle to your port
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();

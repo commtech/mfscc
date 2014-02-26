@@ -9,13 +9,18 @@
 | `mfscc`        | `v1.0.0`
 
 
-## Property
-```python
-rx_multiple = property(...)
-```
-
-
 ## Get
+```int status = fscc.get_rx_multiple(fscc_handle p)```
+
+| Parameter      | Type             | Description
+| -------------- | ---------------- | -------------------------------------------
+| `p`            | `fscc_handle`    | The handle to your port
+
+| Output         | Value
+| -------------- | -----------------
+| `status`       | Whether rx multiple is enabled(1) or disabled(0)
+
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
@@ -26,6 +31,12 @@ status = fscc.get_rx_multiple(p);
 
 
 ## Enable
+```fscc.enable_rx_multiple(fscc_handle p)```
+
+| Parameter      | Type             | Description
+| -------------- | ---------------- | -------------------------------------------
+| `p`            | `fscc_handle`    | The handle to your port
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();
@@ -36,6 +47,12 @@ fscc.enable_rx_multiple(p);
 
 
 ## Disable
+```fscc.disable_rx_multiple(fscc_handle p)```
+
+| Parameter      | Type             | Description
+| -------------- | ---------------- | -------------------------------------------
+| `p`            | `fscc_handle`    | The handle to your port
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();

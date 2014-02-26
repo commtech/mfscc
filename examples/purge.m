@@ -1,6 +1,13 @@
 fscc = mfscc();
 p = fscc.connect(0);
-fscc.purge(p, 1, 0);
-fscc.purge(p, 0, 1);
-fscc.purge(p, 1, 1);
+
+% TX
+fscc.purge(p, true, false);
+
+% RX
+fscc.purge(p, false, true);
+
+% TX & RX
+fscc.purge(p, true, true);
+
 fscc.disconnect(p);

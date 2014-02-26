@@ -1,6 +1,9 @@
 fscc = mfscc();
 p = fscc.connect(0);
+
 status = fscc.get_ignore_timeout(p)
-fscc.set_ignore_timeout(p, 1);
-fscc.set_ignore_timeout(p, 0);
+
+fscc.enable_ignore_timeout(p);
+fscc.disable_ignore_timeout(p);
+
 fscc.disconnect(p);

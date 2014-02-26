@@ -33,68 +33,65 @@ function fscc = mfscc()
 end
 
 function [status] = get_append_status(handle)
-    status_ptr = libpointer('uint32Ptr', 0);
-    e = calllib('cfscc', 'fscc_get_append_status', handle, status_ptr);
+    status = libpointer('uint32Ptr', 0);
+    [e, ~, status] = calllib('cfscc', 'fscc_get_append_status', handle, status);
     check_error(e);
-    status = status_ptr.Value;
 end
 
 function enable_append_status(handle)
-    e = calllib('cfscc', 'fscc_enable_append_status', handle);
+    [e, ~] = calllib('cfscc', 'fscc_enable_append_status', handle);
     check_error(e);
 end
 
 function disable_append_status(handle)
-    e = calllib('cfscc', 'fscc_disable_append_status', handle);
+    [e, ~] = calllib('cfscc', 'fscc_disable_append_status', handle);
     check_error(e);
 end
 
 function [status] = get_append_timestamp(handle)
-    status_ptr = libpointer('uint32Ptr', 0);
-    e = calllib('cfscc', 'fscc_get_append_timestamp', handle, status_ptr);
+    status = libpointer('uint32Ptr', 0);
+    [e, ~, status] = calllib('cfscc', 'fscc_get_append_timestamp', handle, status);
     check_error(e);
-    status = status_ptr.Value;
 end
 
 function enable_append_timestamp(handle)
-    e = calllib('cfscc', 'fscc_enable_append_timestamp', handle);
+    [e, ~] = calllib('cfscc', 'fscc_enable_append_timestamp', handle);
     check_error(e);
 end
 
 function disable_append_timestamp(handle)
-    e = calllib('cfscc', 'fscc_disable_append_timestamp', handle);
+    [e, ~] = calllib('cfscc', 'fscc_disable_append_timestamp', handle);
     check_error(e);
 end
 
 function set_clock_frequency(handle, frequency)
-    e = calllib('cfscc', 'fscc_set_clock_frequency', handle, frequency);
+    [e, ~] = calllib('cfscc', 'fscc_set_clock_frequency', handle, frequency);
     check_error(e);
 end
 
 function [handle] = connect(port_num)
     handle = libpointer;
-    e = calllib('cfscc', 'fscc_connect', port_num, handle);
+    [e, handle] = calllib('cfscc', 'fscc_connect', port_num, handle);
     check_error(e);
 end
 
 function disconnect(handle)
-    calllib('cfscc', 'fscc_disconnect', handle);
+    [~, ~] = calllib('cfscc', 'fscc_disconnect', handle);
 end
 
 function [status] = get_ignore_timeout(handle)
-    status_ptr = libpointer('uint32Ptr', 0);
-    e = calllib('cfscc', 'fscc_get_ignore_timeout', handle, status_ptr);
+    status = libpointer('uint32Ptr', 0);
+    [e, ~, status] = calllib('cfscc', 'fscc_get_ignore_timeout', handle, status);
     check_error(e);
-    status = status_ptr.Value;
 end
 
 function enable_ignore_timeout(handle)
-    e = calllib('cfscc', 'fscc_enable_ignore_timeout', handle);
+    [e, ~] = calllib('cfscc', 'fscc_enable_ignore_timeout', handle);
     check_error(e);
 end
 
 function disable_ignore_timeout(handle)
-    e = calllib('cfscc', 'fscc_disable_ignore_timeout', handle);
+    [e, ~] = calllib('cfscc', 'fscc_disable_ignore_timeout', handle);
     check_error(e);
 end
 
@@ -114,7 +111,7 @@ function set_memory_cap(handle, input, output)
 end
 
 function purge(handle, tx, rx)
-    e = calllib('cfscc', 'fscc_purge', handle, tx, rx);
+    [e, ~] = calllib('cfscc', 'fscc_purge', handle, tx, rx);
     check_error(e);
 end
 
@@ -127,18 +124,16 @@ function [data, bytes_read] = read(handle, timeout, size)
     end
 
     data_ptr = libpointer('cstring', char(zeros(1, size + 1)));
-    bytes_read_ptr  = libpointer('uint32Ptr', 0);
+    bytes_read  = libpointer('uint32Ptr', 0);
 
     if timeout
-        [e, ~, data_ptr, ~] = calllib('cfscc', 'fscc_read_with_timeout', handle, data_ptr, size, bytes_read_ptr, timeout);
+        [e, ~, data_ptr, bytes_read] = calllib('cfscc', 'fscc_read_with_timeout', handle, data_ptr, size, bytes_read, timeout);
     else
-        [e, ~, data_ptr, ~] = calllib('cfscc', 'fscc_read_with_blocking', handle, data_ptr, size, bytes_read_ptr);
+        [e, ~, data_ptr, bytes_read] = calllib('cfscc', 'fscc_read_with_blocking', handle, data_ptr, size, bytes_read);
     end
-
-    bytes_read = bytes_read_ptr.Value;
     
     if bytes_read
-        data = data_ptr(1:bytes_read + 1)
+        data = data_ptr(1:bytes_read + 1);
     end
 
     check_error(e);
@@ -173,54 +168,51 @@ function [reg_out] = get_registers(handle)
 end
 
 function [status] = get_rx_multiple(handle)
-    status_ptr = libpointer('uint32Ptr', 0);
-    e = calllib('cfscc', 'fscc_get_rx_multiple', handle, status_ptr);
+    status = libpointer('uint32Ptr', 0);
+    [e, ~, status] = calllib('cfscc', 'fscc_get_rx_multiple', handle, status);
     check_error(e);
-    status = status_ptr.Value;
 end
 
 function enable_rx_multiple(handle)
-    e = calllib('cfscc', 'fscc_enable_rx_multiple', handle);    
+    [e, ~] = calllib('cfscc', 'fscc_enable_rx_multiple', handle);    
     check_error(e);
 end
 
 function disable_rx_multiple(handle)
-    e = calllib('cfscc', 'fscc_disable_rx_multiple', handle);
+    [e, ~] = calllib('cfscc', 'fscc_disable_rx_multiple', handle);
     check_error(e);
 end
 
 %TODO: Analysis
 function [matches] = track_interrupts_with_blocking(handle, interrupts)
     matches = libpointer('uint32Ptr', 0);
-    e = calllib('cfscc', 'fscc_track_interrupts_with_blocking', handle, interrupts, matches);    
+    [e, ~, matches] = calllib('cfscc', 'fscc_track_interrupts_with_blocking', handle, interrupts, matches);    
     check_error(e);
 end
 
 %TODO: Analysis
 function [matches] = track_interrupts_with_timeout(handle, interrupts, timeout)
     matches = libpointer('uint32Ptr', 0);
-    e = calllib('cfscc', 'fscc_track_interrupts_with_timeout', handle, interrupts, matches, timeout);
+    [e, ~, matches] = calllib('cfscc', 'fscc_track_interrupts_with_timeout', handle, interrupts, matches, timeout);
     check_error(e);
 end
 
-function [tx_modifiers] = get_tx_modifiers(handle)
-    tx_modifiers_ptr = libpointer('uint32Ptr', 0);
-    e = calllib('cfscc', 'fscc_get_tx_modifiers', handle, tx_modifiers_ptr);
+function [modifiers] = get_tx_modifiers(handle)
+    modifiers = libpointer('uint32Ptr', 0);
+    [e, ~, modifiers] = calllib('cfscc', 'fscc_get_tx_modifiers', handle, modifiers);
     check_error(e);
-    tx_modifiers = tx_modifiers_ptr.Value;
 end
 
 function set_tx_modifiers(handle, tx_modifiers)
-    e = calllib('cfscc', 'fscc_set_tx_modifiers', handle, tx_modifiers);
+    [e, ~] = calllib('cfscc', 'fscc_set_tx_modifiers', handle, tx_modifiers);
     check_error(e);
 end
 
 function [bytes_written] = write(handle, data)
-    bytes_written_ptr = libpointer('uint32Ptr', 0);
+    bytes_written = libpointer('uint32Ptr', 0);
     size = length(data);
-    e = calllib('cfscc', 'fscc_write_with_blocking', handle, data, size, bytes_written_ptr);
+    [e, ~, ~, bytes_written] = calllib('cfscc', 'fscc_write_with_blocking', handle, data, size, bytes_written);
     check_error(e);
-    bytes_written = bytes_written_ptr.Value;
 end
 
 function check_error(e)

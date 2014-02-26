@@ -7,7 +7,6 @@ This README file is best viewed [online](http://github.com/commtech/mfscc/).
 - You can use the pre-built library files that are included with the driver
 - Or, you can download the latest library version from
 [Github releases](https://github.com/commtech/mfscc/releases).
-```
 
 
 ## Quick Start Guide

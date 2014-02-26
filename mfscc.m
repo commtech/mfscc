@@ -29,10 +29,31 @@ function fscc = mfscc()
     fscc.get_tx_modifiers=@get_tx_modifiers;
     fscc.set_tx_modifiers=@set_tx_modifiers;
     fscc.write=@write;
+
+    fscc.XF=@XF;
+    fscc.XREP=@XREP;
+    fscc.TXT=@TXT;
+    fscc.TXEXT=@TXEXT;
 end
 
 function path = LIB_NAME
     path = 'cfscc';
+end
+
+function val = XF
+    val = 0;
+end
+
+function val = XREP
+    val = 1;
+end
+
+function val = TXT
+    val = 2;
+end
+
+function val = TXEXT
+    val = 4;
 end
 
 function val = FSCC_UPDATE_VALUE

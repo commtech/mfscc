@@ -18,11 +18,11 @@
 | `p`            | `fscc_handle`    | The handle to your port
 | `data`         | `string`         | The string you would like to write
 
-| Exception             | Base Exception | Cause
-| --------------------- | -------------- | ----------------------------------------------------
-| `BufferTooSmallError` | `OSError`      | The write size exceeds the output memory usage cap
-| `TimeoutError`        | `OSError`      | Command timed out (missing clock)
-| `IncorrectModeError`  | `OSError`      | Using the synchronous port while in asynchronous mode
+| Exception             | Cause
+| --------------------- | ----------------------------------------------------
+| `FSCC:BufferTooSmall` | The write size exceeds the output memory usage cap
+| `FSCC:Timeout`        | Command timed out (missing clock)
+| `FSCC:IncorrectMode`  | Using the synchronous port while in asynchronous mode
 
 ###### Examples
 ```MATLAB

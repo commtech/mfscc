@@ -26,6 +26,10 @@ locked in._
 | `tx`      | `Boolean`     | Whether to purge the transmit data
 | `rx`      | `Boolean`     | Whether to purge the receive data
 
+| Exception               | Cause
+| ----------------------- | ---------------------------------
+| `FSCC:Timeout`          | Command timed out (missing clock)
+
 ###### Examples
 Purge both the transmit and receive data.
 ```MATLAB

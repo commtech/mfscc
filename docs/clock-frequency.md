@@ -34,9 +34,9 @@ option._
 | `p`            | `fscc_handle`  | The handle to your port
 | `frequency`    | `unsigned int` | Desired clock frequency (15,000 to 270,000,000)
 
-| Exception               | Base Exception | Cause
-| ----------------------- | -------------- | ---------------------------------
-| `InvalidParameterError` | `ValueError`   | Clock frequency is out of range (15,000 to 270,000,000)
+| Exception               | Cause
+| ----------------------- | ---------------------------------
+| `FSCC:InvalidParameter` | Clock frequency is out of range (15,000 to 270,000,000)
 
 ###### Examples
 ```MATLAB

@@ -24,6 +24,11 @@ if you would like to use the asynchronous functionality.
 |--------------- | --------------------------
 | `p`            | Pointer to fscc_handle
 
+| Exception               | Cause
+| ----------------------- | ---------------------------------
+| `FSCC:PortNotFound`     | Port not found
+| `FSCC:InvalidAccess`    | Insufficient permissions
+
 ###### Examples
 ```MATLAB
 fscc = mfscc();

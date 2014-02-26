@@ -25,8 +25,7 @@ function fscc = mfscc()
     fscc.get_rx_multiple=@get_rx_multiple;
     fscc.enable_rx_multiple=@enable_rx_multiple;
     fscc.disable_rx_multiple=@disable_rx_multiple;
-    fscc.track_interrupts_with_blocking=@track_interrupts_with_blocking;
-    fscc.track_interrupts_with_timeout=@track_interrupts_with_timeout;
+    fscc.track_interrupts=@track_interrupts;
     fscc.get_tx_modifiers=@get_tx_modifiers;
     fscc.set_tx_modifiers=@set_tx_modifiers;
     fscc.write=@write;
@@ -184,16 +183,18 @@ function disable_rx_multiple(h)
 end
 
 %TODO: Analysis
-function [matches] = track_interrupts_with_blocking(h, interrupts)
-    matches = libpointer('uint32Ptr', 0);
-    [e, ~, matches] = calllib('cfscc', 'fscc_track_interrupts_with_blocking', h, interrupts, matches);    
-    check_error(e);
-end
+function [matches] = track_interrupts(h, interrupts, timeout)
+    if ~exist('timeout', 'var')
+        timeout = 0;
+    end
 
-%TODO: Analysis
-function [matches] = track_interrupts_with_timeout(h, interrupts, timeout)
     matches = libpointer('uint32Ptr', 0);
-    [e, ~, matches] = calllib('cfscc', 'fscc_track_interrupts_with_timeout', h, interrupts, matches, timeout);
+    
+    if timeout
+        [e, ~, matches] = calllib('cfscc', 'fscc_track_interrupts_with_timeout', h, interrupts, matches, timeout); 
+    else
+        [e, ~, matches] = calllib('cfscc', 'fscc_track_interrupts_with_blocking', h, interrupts, matches);  
+    end
     check_error(e);
 end
 

@@ -37,7 +37,8 @@ end
 
 function [status] = get_append_status(h)
     status = libpointer('uint32Ptr', 0);
-    [e, ~, status] = calllib(LIB_NAME, 'fscc_get_append_status', h, status);
+    [e, ~, status] = calllib(LIB_NAME, 'fscc_get_append_status', h, ... 
+                             status);
     check_error(e);
 end
 
@@ -53,7 +54,8 @@ end
 
 function [status] = get_append_timestamp(h)
     status = libpointer('uint32Ptr', 0);
-    [e, ~, status] = calllib(LIB_NAME, 'fscc_get_append_timestamp', h, status);
+    [e, ~, status] = calllib(LIB_NAME, 'fscc_get_append_timestamp', h, ...
+                             status);
     check_error(e);
 end
 
@@ -84,7 +86,8 @@ end
 
 function [status] = get_ignore_timeout(h)
     status = libpointer('uint32Ptr', 0);
-    [e, ~, status] = calllib(LIB_NAME, 'fscc_get_ignore_timeout', h, status);
+    [e, ~, status] = calllib(LIB_NAME, 'fscc_get_ignore_timeout', h, ...
+                             status);
     check_error(e);
 end
 
@@ -107,7 +110,8 @@ function memory_cap = get_memory_cap(h)
 end
  
 function set_memory_cap(h, input, output)
-    memcap_struct = struct('input', int32(input), 'output', int32(output));
+    memcap_struct = struct('input', int32(input), ...
+                           'output', int32(output));
     memcap_ptr = libpointer('fscc_memory_cap', memcap_struct);
     e = calllib(LIB_NAME, 'fscc_set_memory_cap', h, memcap_ptr);
     check_error(e);
@@ -205,7 +209,8 @@ end
 
 function [modifiers] = get_tx_modifiers(h)
     modifiers = libpointer('uint32Ptr', 0);
-    [e, ~, modifiers] = calllib(LIB_NAME, 'fscc_get_tx_modifiers', h, modifiers);
+    [e, ~, modifiers] = calllib(LIB_NAME, 'fscc_get_tx_modifiers', h, ...
+                                modifiers);
     check_error(e);
 end
 

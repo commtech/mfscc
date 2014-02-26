@@ -101,19 +101,18 @@ function disable_ignore_timeout(h)
     check_error(e);
 end
 
-function memory_cap = get_memory_cap(h)
+function memcap = get_memory_cap(h)
     memcap_struct = struct('input', int32(-2), 'output', int32(-2));
-    memcap_ptr = libpointer('fscc_memory_cap', memcap_struct);
-    e = calllib(LIB_NAME, 'fscc_get_memory_cap', h, memcap_ptr);
+    memcap = libpointer('fscc_memory_cap', memcap_struct);
+    [e, ~, memcap] = calllib(LIB_NAME, 'fscc_get_memory_cap', h, memcap);
     check_error(e);
-    memory_cap = get(memcap_ptr, 'Value');
 end
  
 function set_memory_cap(h, input, output)
     memcap_struct = struct('input', int32(input), ...
                            'output', int32(output));
-    memcap_ptr = libpointer('fscc_memory_cap', memcap_struct);
-    e = calllib(LIB_NAME, 'fscc_set_memory_cap', h, memcap_ptr);
+    memcap = libpointer('fscc_memory_cap', memcap_struct);
+    [e, ~, ~] = calllib(LIB_NAME, 'fscc_set_memory_cap', h, memcap);
     check_error(e);
 end
 

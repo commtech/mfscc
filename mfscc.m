@@ -149,26 +149,13 @@ function [data, bytes_read] = read(h, timeout, size)
     check_error(e);
 end
 
-%TODO: Analysis
 function set_registers(h, registers)
-    key_set = {'FIFOT','CMDR','CCR0','CCR1','CCR2','BGR','SSR','SMR','TSR','TMR','RAR','RAMR','PPR','TCR','VSTR','IMR','DPLLR','FCR'};
-    double_one = {[-1,-1]};
-    val_set = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
-    reg_map = containers.Map(key_set, val_set);
-    allKeys = keys(registers);
-    for i = allKeys
-        temp_i = upper(i);
-        if ismember(temp_i, {'CMDR','CCR0','CCR1','CCR2','BGR','SSR','SMR','TSR','TMR','RAR','RAMR','PPR','TCR','IMR','DPLLR','FCR'})
-            reg_map(char(temp_i)) = registers(char(temp_i));
-        end
-    end
-    registers_in = struct('reserved1',double_one,'FIFOT',reg_map('FIFOT'),'reserved2',double_one,'CMDR',reg_map('CMDR'),'STAR', -1,'CCR0',reg_map('CCR0'),'CCR1',reg_map('CCR1'),'CCR2',reg_map('CCR2'),'BGR',reg_map('BGR'),'SSR',reg_map('SSR'),'SMR',reg_map('SMR'),'TSR',reg_map('TSR'),'TMR',reg_map('TMR'),'RAR',reg_map('RAR'),'RAMR',reg_map('RAMR'),'PPR',reg_map('PPR'),'TCR',reg_map('TCR'),'VSTR',reg_map('VSTR'),'reserved3',-1,'IMR',reg_map('IMR'),'DPLLR',reg_map('DPLLR'),'FCR',reg_map('FCR'));
-    mem_struct = libstruct('fscc_registers',registers_in);
-    e = calllib(LIB_NAME, 'fscc_set_registers', h, mem_struct);    
+    reg_struct = struct(registers{:});
+    registers = libpointer('fscc_registersPtr', reg_struct);
+    [e, ~, ~] = calllib(LIB_NAME, 'fscc_set_registers', h, registers);
     check_error(e);
 end
 
-%TODO: Analysis
 function [registers] = get_registers(h)
     reg_struct = struct('FIFOT', FSCC_UPDATE_VALUE, ...
                         'STAR', FSCC_UPDATE_VALUE, ...

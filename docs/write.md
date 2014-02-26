@@ -11,17 +11,12 @@
 
 
 ## Write
-```python
-def write(self, data):
-```
+```fscc.write(fscc_handle p, string data)```
 
-| Parameter    | Type    | Description
-| ------------ | ------- | ---------------------------
-| `buf`        | `bytes` | The data buffer to transmit
-
-| Return
-| ---------------------------
-| Number of bytes transmitted
+| Parameter      | Type             | Description
+| -------------- | ---------------- | -------------------------------------------
+| `p`            | `fscc_handle`    | The handle to your port
+| `data`         | `string`         | The string you would like to write
 
 | Exception             | Base Exception | Cause
 | --------------------- | -------------- | ----------------------------------------------------
@@ -30,11 +25,11 @@ def write(self, data):
 | `IncorrectModeError`  | `OSError`      | Using the synchronous port while in asynchronous mode
 
 ###### Examples
-```c
+```MATLAB
 fscc = mfscc();
 ...
 
-written = fscc.write_with_blocking(p, 'Hello world!', 12);
+fscc.write(p, 'Hello world!');
 ```
 
 

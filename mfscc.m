@@ -1,7 +1,7 @@
 function fscc = mfscc()
     % This will pull in the library unless its already in
     if not(libisloaded(LIB_NAME))
-        [~, ~] = loadlibrary(LIB_NAME, 'fscc.h');
+        [~, ~] = loadlibrary(LIB_NAME,@xfz1);
     end
 
     fscc.get_append_status=@get_append_status;
@@ -154,19 +154,15 @@ function [data, bytes_read] = read(h, timeout, size)
         size = 4096;
     end
 
-    data_ptr = libpointer('cstring', char(zeros(1, size + 1)));
+    data_ptr = libpointer('stringPtr', char(ones(1,size+1)*32));
     bytes_read  = libpointer('uint32Ptr', 0);
 
     if timeout
-        [e, ~, data_ptr, bytes_read] = calllib(LIB_NAME, 'fscc_read_with_timeout', h, data_ptr, size, bytes_read, timeout);
+        [e, ~, data, bytes_read] = calllib(LIB_NAME, 'fscc_read_with_timeout', h, data_ptr, size, bytes_read, timeout);
     else
-        [e, ~, data_ptr, bytes_read] = calllib(LIB_NAME, 'fscc_read_with_blocking', h, data_ptr, size, bytes_read);
+        [e, ~, data, bytes_read] = calllib(LIB_NAME, 'fscc_read_with_blocking', h, data_ptr, size, bytes_read);
     end
     
-    if bytes_read
-        data = data_ptr(1:bytes_read + 1);
-    end
-
     check_error(e);
 end
 

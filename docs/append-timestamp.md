@@ -74,5 +74,5 @@ fscc.disable_append_timestamp(p);
 
 
 ### Additional Resources
-- Complete example: [`examples\append-timestamp.m`](https://github.com/commtech/mfscc/blob/master/examples/append-timestamp.m)
+- Complete example: [`examples\append_timestamp.m`](https://github.com/commtech/mfscc/blob/master/examples/append_timestamp.m)
 - Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

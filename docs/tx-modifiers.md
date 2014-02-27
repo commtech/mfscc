@@ -53,5 +53,5 @@ fscc.set_tx_modifiers(p, fscc.TXEXT() | fscc.XREP());
 
 
 ### Additional Resources
-- Complete example: [`examples\tx-modifiers.m`](https://github.com/commtech/mfscc/blob/master/examples/tx-modifiers.m)
+- Complete example: [`examples\tx_modifiers.m`](https://github.com/commtech/mfscc/blob/master/examples/tx_modifiers.m)
 - Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

@@ -32,5 +32,5 @@ fscc.track_interrupts(p, hex2dec('00000400'), 1000)
 
 
 ### Additional Resources
-- Complete example: [`examples\track-interrupts.m`](https://github.com/commtech/mfscc/blob/master/examples/track-interrupts.m)
+- Complete example: [`examples\track_interrupts.m`](https://github.com/commtech/mfscc/blob/master/examples/track_interrupts.m)
 - Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

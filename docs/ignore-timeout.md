@@ -61,5 +61,5 @@ fscc.disable_ignore_timeout(p);
 
 
 ### Additional Resources
-- Complete example: [`examples\ignore-timeout.m`](https://github.com/commtech/mfscc/blob/master/examples/ignore-timeout.m)
+- Complete example: [`examples\ignore_timeout.m`](https://github.com/commtech/mfscc/blob/master/examples/ignore_timeout.m)
 - Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

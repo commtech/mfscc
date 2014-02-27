@@ -48,5 +48,5 @@ fscc.set_clock_frequency(p, 18432000);
 
 
 ### Additional Resources
-- Complete example: [`examples\clock-frequency.m`](https://github.com/commtech/mfscc/blob/master/examples/clock-frequency.m)
+- Complete example: [`examples\clock_frequency.m`](https://github.com/commtech/mfscc/blob/master/examples/clock_frequency.m)
 - Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

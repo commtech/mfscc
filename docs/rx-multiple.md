@@ -63,5 +63,5 @@ fscc.disable_rx_multiple(p);
 
 
 ### Additional Resources
-- Complete example: [`examples\rx-multiple.m`](https://github.com/commtech/mfscc/blob/master/examples/rx-multiple.m)
+- Complete example: [`examples\rx_multiple.m`](https://github.com/commtech/mfscc/blob/master/examples/rx_multiple.m)
 - Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

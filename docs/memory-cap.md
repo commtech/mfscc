@@ -49,5 +49,5 @@ fscc.set_memory_cap(p, mem_input, mem_output);
 
 
 ### Additional Resources
-- Complete example: [`examples\memory-cap.m`](https://github.com/commtech/mfscc/blob/master/examples/memory-cap.m)
+- Complete example: [`examples\memory_cap.m`](https://github.com/commtech/mfscc/blob/master/examples/memory_cap.m)
 - Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

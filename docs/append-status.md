@@ -69,5 +69,5 @@ fscc.disable_append_status(p);
 
 
 ### Additional Resources
-- Complete example: [`examples\append-status.m`](https://github.com/commtech/mfscc/blob/master/examples/append-status.m)
+- Complete example: [`examples\append_status.m`](https://github.com/commtech/mfscc/blob/master/examples/append_status.m)
 - Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)

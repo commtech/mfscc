@@ -59,6 +59,9 @@ own program. All of these options are described on their respective documentatio
 - Windows compiler
 - OS: Windows XP+ & Linux
 
+## Compiler Errors?
+If you run into an error with your compiler, it is possible your compiler does not support the INT64 or INT64_T types. Try a newer compiler for better results.
+
 
 ## API Compatibility
 We follow [Semantic Versioning](http://semver.org/) when creating releases.

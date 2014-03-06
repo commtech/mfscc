@@ -60,8 +60,11 @@ own program. All of these options are described on their respective documentatio
 - OS: Windows XP+ & Linux
 
 ## Compiler Errors?
-If you run into an error with your compiler, it is possible your compiler does not support the INT64 or INT64_T types. Try a newer compiler for better results.
-
+If you run into an error with your compiler, it is possible your compiler does not support the INT64 or INT64_T types. As of R2013b, this includes the compiler released with MATLAB (32-bit). Try a newer compiler for better results. You can change the compiler used by typing the following:
+```matlab
+mex -setup
+```
+After that, you can follow the on-screen instructions to choose a new compiler.
 
 ## API Compatibility
 We follow [Semantic Versioning](http://semver.org/) when creating releases.

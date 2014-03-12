@@ -1,24 +1,25 @@
 # RX Multiple
 
 ###### Support
-| Code           | Version
-| -------------- | --------
-| `fscc-windows` | `v2.0.0`
-| `fscc-linux`   | `v2.0.0`
-| `pyfscc`       | `v1.0.0`
-| `mfscc`        | `v1.0.0`
+| Code | Version |
+| ---- | ------- |
+| `fscc-windows` | `v2.0.0` |
+| `fscc-linux` | `v2.0.0` |
+| `mfscc` | `v1.0.0` |
 
 
 ## Get
-```int status = fscc.get_rx_multiple(fscc_handle p)```
+```MATLAB
+status = fscc.get_rx_multiple(h)
+```
 
-| Parameter      | Type             | Description
-| -------------- | ---------------- | -------------------------------------------
-| `p`            | `fscc_handle`    | The handle to your port
+| Parameter | Description |
+| --------- | ----------- |
+| `h` | The handle to your port |
 
-| Output         | Value
-| -------------- | -----------------
-| `status`       | Whether rx multiple is enabled(1) or disabled(0)
+| Output | Value |
+| ------ | ----- |
+| `status` | The current rx multiple value |
 
 
 ###### Examples
@@ -26,42 +27,46 @@
 fscc = mfscc();
 ...
 
-status = fscc.get_rx_multiple(p);
+status = fscc.get_rx_multiple(h);
 ```
 
 
 ## Enable
-```fscc.enable_rx_multiple(fscc_handle p)```
+```MATLAB
+fscc.enable_rx_multiple(h)
+```
 
-| Parameter      | Type             | Description
-| -------------- | ---------------- | -------------------------------------------
-| `p`            | `fscc_handle`    | The handle to your port
+| Parameter | Description |
+| --------- | ----------- |
+| `h` | The handle to your port |
 
 ###### Examples
 ```MATLAB
 fscc = mfscc();
 ...
 
-fscc.enable_rx_multiple(p);
+fscc.enable_rx_multiple(h);
 ```
 
 
 ## Disable
-```fscc.disable_rx_multiple(fscc_handle p)```
+```MATLAB
+fscc.disable_rx_multiple(h)
+```
 
-| Parameter      | Type             | Description
-| -------------- | ---------------- | -------------------------------------------
-| `p`            | `fscc_handle`    | The handle to your port
+| Parameter | Description |
+| --------- | ----------- |
+| `h` | The handle to your port |
 
 ###### Examples
 ```MATLAB
 fscc = mfscc();
 ...
 
-fscc.disable_rx_multiple(p);
+fscc.disable_rx_multiple(h);
 ```
 
 
 ### Additional Resources
-- Complete example: [`examples\rx_multiple.m`](https://github.com/commtech/mfscc/blob/master/examples/rx_multiple.m)
-- Implemenation details: [`mfscc.m`](https://github.com/commtech/mfscc/blob/master/mfscc.m)
+- Complete example: [`examples/rx_multiple.m`](../examples/rx_multiple.m)
+- Implementation details: [`mfscc.m`](../mfscc.m)

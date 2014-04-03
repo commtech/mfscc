@@ -153,16 +153,17 @@ function [data, bytes_read] = read(h, timeout, size)
     if ~exist('size', 'var')
         size = 4096;
     end
-
-    data_ptr = libpointer('stringPtr', char(ones(1,size+1)*32));
+    
+    data_ptr = libpointer('uint8Ptr', 0:size);
     bytes_read  = libpointer('uint32Ptr', 0);
 
     if timeout
-        [e, ~, data, bytes_read] = calllib(LIB_NAME, 'fscc_read_with_timeout', h, data_ptr, size, bytes_read, timeout);
+        [e, ~, data_ptr, bytes_read] = calllib(LIB_NAME, 'fscc_read_with_timeout', h, data_ptr, size, bytes_read, timeout);
     else
-        [e, ~, data, bytes_read] = calllib(LIB_NAME, 'fscc_read_with_blocking', h, data_ptr, size, bytes_read);
+        [e, ~, data_ptr, bytes_read] = calllib(LIB_NAME, 'fscc_read_with_blocking', h, data_ptr, size, bytes_read);
     end
     
+    data = data_ptr(1:bytes_read);
     check_error(e);
 end
 
@@ -250,6 +251,10 @@ function set_tx_modifiers(h, tx_modifiers)
 end
 
 function [bytes_written] = write(h, data)
+    if ischar(data)
+        data = double(data);
+    end
+    
     bytes_written = libpointer('uint32Ptr', 0);
     size = length(data);
     [e, ~, ~, bytes_written] = calllib(LIB_NAME, 'fscc_write_with_blocking', h, data, size, bytes_written);

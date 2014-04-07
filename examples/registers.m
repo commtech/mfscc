@@ -6,4 +6,5 @@ fscc.set_registers(p, regs);
 
 regs = fscc.get_registers(p)
 
-fscc.disconnect(0);
+
+fscc.disconnect(p);
